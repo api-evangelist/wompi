@@ -1,0 +1,57 @@
+generated: '2026-07-17'
+method: searched
+source: https://docs.wompi.co/en/docs/colombia/widget-checkout-web/
+summary: >-
+  Wompi ships client-side, embeddable checkout surfaces distinct from any server-side
+  SDK: a JavaScript Widget loaded from checkout.wompi.co/widget.js and a hosted Web
+  Checkout redirect. Both are configured with the merchant PUBLIC key plus an integrity
+  signature, and are safe to run in the browser.
+loaders:
+- name: Wompi Widget
+  src: https://checkout.wompi.co/widget.js
+components:
+- family: Widget
+  name: Wompi Widget (auto-button)
+  type: script
+  loader: https://checkout.wompi.co/widget.js
+  usage: >-
+    Include the widget.js script inside a <form> with data-render="button" to render
+    a payment button automatically. Transaction parameters are passed as data- attributes
+    with dashes instead of underscores (e.g. data-amount-in-cents, data-reference), nested
+    values use colons (e.g. data-customer-data:email, data-signature:integrity).
+  required_attributes:
+  - data-public-key
+  - data-currency
+  - data-amount-in-cents
+  - data-reference
+  - data-signature:integrity
+  optional_attributes:
+  - data-redirect-url
+  - data-customer-data
+  - data-shipping-address
+  - data-tax-in-cents
+- family: Widget
+  name: WidgetCheckout (custom JS class)
+  type: javascript-class
+  loader: https://checkout.wompi.co/widget.js
+  usage: >-
+    Load widget.js in <head>, then instantiate the WidgetCheckout class with a config
+    object (publicKey, currency, amountInCents, reference, signature, optional redirectUrl)
+    and call .open(callback) - the callback receives the transaction result data.
+  config_properties:
+  - amountInCents
+  - reference
+  - publicKey
+  - currency
+  - redirectUrl (optional)
+- family: Web Checkout
+  name: Hosted Web Checkout (redirect)
+  type: hosted-redirect
+  action_url: https://checkout.wompi.co/p/
+  usage: >-
+    A standard HTML <form> that POSTs hidden inputs (public-key, currency, amount-in-cents,
+    reference, signature:integrity, optional redirect-url) to checkout.wompi.co/p/ and
+    redirects the buyer to Wompi's hosted checkout page.
+notes: >-
+  Payment links (checkout.wompi.co/l/...) are a related hosted surface created via the
+  Payment Links API rather than an embeddable client component.

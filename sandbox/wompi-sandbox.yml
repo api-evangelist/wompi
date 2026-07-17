@@ -1,0 +1,96 @@
+generated: '2026-07-17'
+method: searched
+source: https://docs.wompi.co/en/docs/colombia/datos-de-prueba-en-sandbox/
+docs:
+- https://docs.wompi.co/en/docs/colombia/datos-de-prueba-en-sandbox/
+- https://docs.wompi.co/en/docs/colombia/ambientes-y-llaves/
+summary: >-
+  Wompi ships a full Sandbox environment that mirrors production behavior without
+  moving real money. Test vs live is selected purely by key prefix - test keys are
+  pub_test_ / prv_test_, production keys are pub_prod_ / prv_prod_ - and by the
+  sandbox base host. Magic test values force a deterministic final status per
+  payment method. Save these verbatim; never invent additional test values.
+environments:
+  test:
+    base_url: https://sandbox.wompi.co/v1
+    public_key_prefix: pub_test_
+    private_key_prefix: prv_test_
+  live:
+    base_url: https://production.wompi.co/v1
+    public_key_prefix: pub_prod_
+    private_key_prefix: prv_prod_
+test_data:
+  cards:
+    envelope_field: number
+    values:
+    - number: '4242424242424242'
+      result: APPROVED
+      note: Any future expiry date and any 3-digit CVC.
+    - number: '4111111111111111'
+      result: DECLINED
+      note: Any future expiry date and any 3-digit CVC.
+    - number: any-other
+      result: ERROR
+  nequi:
+    envelope_field: phone_number
+    values:
+    - phone_number: '3991111111'
+      result: APPROVED
+    - phone_number: '3992222222'
+      result: DECLINED
+    - phone_number: any-other
+      result: ERROR
+  pse:
+    envelope_field: financial_institution_code
+    values:
+    - financial_institution_code: '1'
+      result: APPROVED
+      widget_label: Banco que aprueba
+    - financial_institution_code: '2'
+      result: DECLINED
+      widget_label: Banco que rechaza
+  bancolombia_qr:
+    envelope_field: payment_method.sandbox_status
+    values:
+    - sandbox_status: APPROVED
+      result: APPROVED
+    - sandbox_status: DECLINED
+      result: DECLINED
+    - sandbox_status: ERROR
+      result: ERROR
+  puntos_colombia:
+    envelope_field: payment_method.sandbox_status
+    values:
+    - sandbox_status: APPROVED_ONLY_POINTS
+      result: APPROVED (full payment with points)
+    - sandbox_status: APPROVED_HALF_POINTS
+      result: APPROVED (50% payment with points)
+    - sandbox_status: DECLINED
+      result: DECLINED
+    - sandbox_status: ERROR
+      result: ERROR
+  daviplata_single_otp:
+    envelope_field: otp
+    values:
+    - otp: '574829'
+      result: APPROVED
+    - otp: '932015'
+      result: DECLINED
+    - otp: '186743'
+      result: DECLINED (insufficient balance)
+    - otp: '999999'
+      result: ERROR
+  daviplata_recurring:
+    envelope_field: phone_number
+    values:
+    - phone_number: '3991111111'
+      result: APPROVED (token)
+    - phone_number: '3992222222'
+      result: DECLINED (token)
+    - phone_number: '3993333333'
+      result: DECLINED (invalid wallet)
+notes: >-
+  Both Sandbox and Production require a separately-configured Events (webhook)
+  URL. There is no time-simulation / test-clock tooling; forcing a status is done
+  via the magic values above. The integrity signature and acceptance token flow
+  is identical to production, only with test keys.

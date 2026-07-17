@@ -1,0 +1,35 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/wompi-openapi.yml
+format: custom
+envelope: >-
+  Wompi returns errors as a JSON object with an `error` member carrying a `type`
+  (e.g. INPUT_VALIDATION_ERROR, NOT_FOUND_ERROR) and `reason` / `messages` detailing
+  the failed fields. It does not use application/problem+json (RFC 9457).
+problems:
+- status: 404
+  type: NOT_FOUND_ERROR
+  title: Resource not found
+  detail: The requested merchant, transaction, or payment link does not exist.
+  source_operations:
+  - openapi/wompi-openapi.yml#getMerchant
+  - openapi/wompi-openapi.yml#getTransaction
+- status: 422
+  type: INPUT_VALIDATION_ERROR
+  title: Validation error
+  detail: >-
+    One or more request fields are missing or invalid - e.g. a bad card number, a
+    missing acceptance_token, or an invalid integrity signature. The `messages`
+    object maps each rejected field to its error(s).
+  source_operations:
+  - openapi/wompi-openapi.yml#tokenizeCard
+  - openapi/wompi-openapi.yml#createTransaction
+- status: 401
+  type: UNAUTHORIZED
+  title: Unauthorized
+  detail: Missing or invalid Bearer key, or using a public key on a private-key-only endpoint.
+  derived: from securitySchemes PublicKey / PrivateKey (not enumerated per-operation in the modeled spec)
+notes: >-
+  Business-level payment declines are NOT API errors - a declined charge returns HTTP
+  201 with a transaction whose status is DECLINED and a human-readable status_message.
+  See errors/wompi-decline-codes.yml.

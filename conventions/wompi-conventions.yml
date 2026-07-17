@@ -1,0 +1,52 @@
+generated: '2026-07-17'
+method: searched
+source:
+- https://docs.wompi.co/en/docs/colombia/ambientes-y-llaves/
+- https://docs.wompi.co/en/docs/colombia/inicia-una-transaccion-desde-cero/
+- openapi/wompi-openapi.yml
+summary: >-
+  Cross-cutting request/response semantics for the Wompi v1 REST API, derived from the
+  OpenAPI and the public developer docs. Cross-links errors/, lifecycle/,
+  authentication/, and rate-limits/.
+authentication:
+  style: HTTP Bearer with two keys per environment
+  public_key: pub_prod_ / pub_test_ (browser-safe; tokenization, merchant read, transaction create/read, PSE catalog)
+  private_key: prv_prod_ / prv_test_ (server-side only; payment sources, voids, payment links)
+  see: authentication/wompi-authentication.yml
+integrity_signature:
+  name: firma de integridad
+  algorithm: SHA256
+  computed_from: reference + amount_in_cents + currency + integrity_secret
+  required_on: transaction creation (createTransaction) and Widget/Web Checkout
+  note: The integrity secret is separate from the API keys and from the events secret; found in the Commerce Dashboard.
+idempotency:
+  supported: false
+  mechanism: merchant-supplied unique `reference` per transaction
+  detail: >-
+    Wompi does not document an Idempotency-Key header. Each transaction carries a
+    merchant-side `reference` string intended to be unique per payment; it is a
+    correlation/dedup identifier, not a retry-safe idempotency key that replays the
+    same response. Treated as uniqueness, not RFC-style idempotency.
+acceptance_tokens:
+  required: true
+  detail: >-
+    Transactions and payment sources require a presigned acceptance_token (end-user
+    policy) and, where applicable, a personal-data authorization token, fetched from
+    GET /merchants/{public_key} (getMerchant).
+pagination:
+  documented: false
+  note: Core resources are fetched by id (getTransaction, getPaymentLink); no cursor/offset list pagination is documented for the public v1 API.
+envelope:
+  shape: All success responses wrap the resource in a top-level `data` object.
+  error_shape: Errors return an `error` object (type + reason/messages); see errors/wompi-problem-types.yml.
+versioning:
+  scheme: uri-path
+  current: v1
+  see: lifecycle/wompi-lifecycle.yml
+amounts:
+  field: amount_in_cents
+  detail: Integer minor units in COP (e.g. 4980000 = COP 49,800). No decimals.
+request_tracing:
+  documented: false
+rate_limit_signaling:
+  see: rate-limits/wompi-rate-limits.yml

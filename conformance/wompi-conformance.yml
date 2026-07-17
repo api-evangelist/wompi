@@ -1,0 +1,38 @@
+generated: '2026-07-17'
+method: derived
+source:
+- openapi/wompi-openapi.yml
+- security/wompi-trust-center.yml
+standards:
+- id: oauth2
+  conforms: false
+  evidence: Auth is HTTP Bearer with static public/private keys, not OAuth2.
+- id: oidc
+  conforms: false
+- id: http-bearer
+  conforms: true
+  evidence: securitySchemes PublicKey / PrivateKey are type http scheme bearer.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a custom `error` envelope, not application/problem+json.
+- id: webhooks
+  conforms: true
+  evidence: Documented outbound HTTP POST events with SHA256 X-Event-Checksum integrity (asyncapi/wompi-webhooks.yml).
+- id: pci-dss
+  conforms: true
+  evidence: >-
+    Operated by Grupo Bancolombia as a card processor under PCI DSS scope; card
+    tokenization keeps raw PAN out of merchant systems (security/wompi-trust-center.yml).
+- id: habeas-data-ley-1581
+  conforms: true
+  evidence: Mandatory presigned personal-data authorization (Colombian data-protection law) enforced via acceptance tokens.
+- id: fhir-r4
+  conforms: false
+- id: fapi
+  conforms: false
+- id: scim
+  conforms: false
+- id: odata
+  conforms: false
+- id: json-api
+  conforms: false

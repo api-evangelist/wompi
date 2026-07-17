@@ -1,0 +1,25 @@
+generated: '2026-07-17'
+method: searched
+source:
+- https://wompi.statuspage.io/
+- https://docs.wompi.co/en/docs/colombia/ambientes-y-llaves/
+- openapi/wompi-openapi.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  base: https://production.wompi.co/v1
+  docs: https://docs.wompi.co/en/docs/colombia/ambientes-y-llaves/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal published deprecation policy or RFC 8594 Sunset/Deprecation header support was confirmed at review time.
+sla:
+  url: null
+  uptime_target: null
+status_page: https://wompi.statuspage.io/
+health_endpoint:
+  note: >-
+    The Third-Party Payments API documents a service-health status endpoint returning
+    HEALTHY / PARTIAL_OUTAGE / UNHEALTHY; the classic Wompi v1 API relies on the public
+    Statuspage.
+deprecated_operations: []

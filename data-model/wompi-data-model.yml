@@ -1,0 +1,64 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/wompi-openapi.yml
+summary: >-
+  Entity-relationship graph derived from the Wompi OpenAPI schemas and id-reference
+  fields. All resources are returned wrapped in a top-level `data` object.
+entities:
+- name: Merchant
+  id_field: public_key
+  operations: [getMerchant]
+  notes: Root of an integration; supplies accepted methods/currencies and presigned acceptance tokens.
+- name: CardToken
+  id_prefix: tok_
+  operations: [tokenizeCard]
+  notes: Single-use token created with the public key from raw card data.
+- name: NequiToken
+  id_prefix: nequi_
+  operations: [tokenizeNequi, getNequiToken]
+  notes: In-app-approved wallet token; polled for status.
+- name: PaymentSource
+  id_field: id (integer)
+  operations: [createPaymentSource]
+  notes: Reusable source built from a CardToken or approved NequiToken.
+- name: Transaction
+  id_field: id (string, e.g. 1234-<ts>-12345)
+  operations: [createTransaction, getTransaction, voidTransaction]
+  notes: Central payment object; status PENDING -> APPROVED/DECLINED/VOIDED/ERROR.
+- name: PaymentLink
+  id_field: id (string)
+  operations: [createPaymentLink, getPaymentLink]
+  notes: Hosted shareable checkout (checkout.wompi.co/l/...).
+- name: PseInstitution
+  id_field: financial_institution_code
+  operations: [listPseFinancialInstitutions]
+  notes: Catalog of PSE banks selectable at checkout.
+relationships:
+- from: Transaction
+  to: Merchant
+  type: belongs_to
+  via: acceptance_token (issued by getMerchant)
+- from: Transaction
+  to: CardToken
+  type: has_one
+  via: payment_method.token (CARD)
+- from: Transaction
+  to: NequiToken
+  type: has_one
+  via: payment_method (NEQUI)
+- from: Transaction
+  to: PaymentSource
+  type: has_one
+  via: payment_source_id
+- from: Transaction
+  to: PseInstitution
+  type: has_one
+  via: payment_method.financial_institution_code (PSE)
+- from: PaymentSource
+  to: CardToken
+  type: has_one
+  via: token (type CARD)
+- from: PaymentSource
+  to: NequiToken
+  type: has_one
+  via: token (type NEQUI)

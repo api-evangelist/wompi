@@ -1,0 +1,34 @@
+generated: '2026-07-17'
+method: searched
+source:
+- https://github.com/
+- https://packagist.org/
+notes: >-
+  Wompi (Grupo Bancolombia) does not publish a first-party client SDK on any major
+  registry. Integration is via the raw v1 REST API, the hosted Widget/Web Checkout
+  (see components/), or third-party community libraries and CMS plugins. The packages
+  below are COMMUNITY-maintained (official: false); no SDKs canonical pointer is
+  emitted because no first-party library exists.
+packages:
+- language: php
+  registry: packagist
+  name: oscar-rey-mosquera/wompi-php
+  url: https://github.com/oscar-rey-mosquera/wompi-php
+  install: composer require oscar-rey-mosquera/wompi-php
+  official: false
+  note: Community PHP wrapper for the Wompi Colombia API (cards, Nequi, PSE, Bancolombia).
+- language: php
+  registry: github
+  name: saulmoralespa/payment-integration-wompi
+  url: https://github.com/saulmoralespa/payment-integration-wompi
+  install: composer
+  official: false
+  note: Community WooCommerce/WordPress payment integration for Wompi.
+- language: javascript
+  registry: github
+  name: jimjabid/wompi
+  url: https://github.com/jimjabid/wompi
+  install: npm
+  official: false
+  note: Community full-stack Wompi integration example.
+first_party_sdk: false

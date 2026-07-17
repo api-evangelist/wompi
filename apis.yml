@@ -159,6 +159,50 @@ common:
   url: rate-limits/wompi-rate-limits.yml
 - type: FinOps
   url: finops/wompi-finops.yml
+- type: Sandbox
+  url: sandbox/wompi-sandbox.yml
+- type: Webhooks
+  url: asyncapi/wompi-webhooks.yml
+- type: Components
+  url: components/wompi-components.yml
+- type: Conventions
+  url: conventions/wompi-conventions.yml
+- type: ErrorCatalog
+  url: errors/wompi-problem-types.yml
+- type: DeclineCodes
+  url: errors/wompi-decline-codes.yml
+- type: Lifecycle
+  url: lifecycle/wompi-lifecycle.yml
+- type: StatusPage
+  url: https://wompi.statuspage.io/
+- type: Conformance
+  url: conformance/wompi-conformance.yml
+- type: Compliance
+  url: security/wompi-trust-center.yml
+- type: DataModel
+  url: data-model/wompi-data-model.yml
+- type: MCPServer
+  url: mcp/wompi-mcp.yml
+- type: LLMsTxt
+  url: llms/wompi-llms.txt
+- type: Overlay
+  url: overlays/wompi-openapi-overlay.yaml
+- type: Packages
+  url: packages/wompi-packages.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DeveloperPortal
+  url: https://comercios.wompi.co/developers
+- type: APIReference
+  url: https://docs.wompi.co/en/docs/colombia/referencia/
+- type: GettingStarted
+  url: https://docs.wompi.co/en/docs/colombia/inicio-rapido/
+- type: SignUp
+  url: https://comercios.wompi.co/
+- type: TermsOfService
+  url: https://wompi.co/es/co/terminos-y-condiciones
+- type: Postman
+  url: collections/wompi.postman_collection.json
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

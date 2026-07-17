@@ -1,0 +1,29 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Wompi
+  version: 1.0.0
+extends: openapi/wompi-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-catalog: https://apis.io/provider/wompi
+    x-apievangelist-country: CO
+    x-apievangelist-currency: COP
+    x-apievangelist-parent: Grupo Bancolombia
+    x-apievangelist-integrity-signature: SHA256(reference + amount_in_cents + currency + integrity_secret)
+- target: $.info
+  update:
+    x-apievangelist-artifacts:
+      authentication: authentication/wompi-authentication.yml
+      conventions: conventions/wompi-conventions.yml
+      sandbox: sandbox/wompi-sandbox.yml
+      webhooks: asyncapi/wompi-webhooks.yml
+      errors: errors/wompi-problem-types.yml
+      decline_codes: errors/wompi-decline-codes.yml
+      data_model: data-model/wompi-data-model.yml
+      lifecycle: lifecycle/wompi-lifecycle.yml
+      conformance: conformance/wompi-conformance.yml
+      components: components/wompi-components.yml
+- target: $.servers
+  update:
+    x-apievangelist-note: Sandbox uses pub_test_/prv_test_ keys; Production uses pub_prod_/prv_prod_.

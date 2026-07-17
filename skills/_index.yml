@@ -1,0 +1,16 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/wompi-openapi.yml
+skills:
+- file: wompi-card-charge.md
+  name: Charge a card end-to-end
+  api: openapi/wompi-openapi.yml
+  operations: [getMerchant, tokenizeCard, createTransaction, getTransaction]
+- file: wompi-recurring-charge.md
+  name: Store a payment source and charge it
+  api: openapi/wompi-openapi.yml
+  operations: [tokenizeCard, createPaymentSource, createTransaction, getTransaction]
+- file: wompi-payment-link.md
+  name: Create and track a payment link
+  api: openapi/wompi-openapi.yml
+  operations: [createPaymentLink, getPaymentLink]

@@ -1,0 +1,45 @@
+generated: '2026-07-17'
+method: derived
+status: candidate
+source: openapi/wompi-openapi.yml
+notes: >-
+  No official hosted/remote Wompi MCP server was found in the docs, the mcp registry,
+  or npm at review time. This is a CANDIDATE tool surface derived one-to-one from the
+  modeled OpenAPI operations, provided as a starting point for an agent integration.
+server:
+  name: wompi
+  transport: http
+tools:
+- name: get_merchant
+  description: Get merchant config and presigned acceptance tokens (public key).
+  source_operation: openapi/wompi-openapi.yml#getMerchant
+- name: tokenize_card
+  description: Exchange raw card data for a single-use card token (public key, browser-safe).
+  source_operation: openapi/wompi-openapi.yml#tokenizeCard
+- name: tokenize_nequi
+  description: Start a Nequi subscription and return a Nequi token.
+  source_operation: openapi/wompi-openapi.yml#tokenizeNequi
+- name: get_nequi_token
+  description: Poll a Nequi token status (PENDING/APPROVED/DECLINED).
+  source_operation: openapi/wompi-openapi.yml#getNequiToken
+- name: create_payment_source
+  description: Create a reusable payment source from a token (private key).
+  source_operation: openapi/wompi-openapi.yml#createPaymentSource
+- name: create_transaction
+  description: Create a payment transaction (requires acceptance token + integrity signature).
+  source_operation: openapi/wompi-openapi.yml#createTransaction
+- name: get_transaction
+  description: Retrieve a transaction's current status.
+  source_operation: openapi/wompi-openapi.yml#getTransaction
+- name: void_transaction
+  description: Void an approved card transaction (private key).
+  source_operation: openapi/wompi-openapi.yml#voidTransaction
+- name: list_pse_financial_institutions
+  description: List PSE banks for online bank debit.
+  source_operation: openapi/wompi-openapi.yml#listPseFinancialInstitutions
+- name: create_payment_link
+  description: Create a hosted shareable payment link (private key).
+  source_operation: openapi/wompi-openapi.yml#createPaymentLink
+- name: get_payment_link
+  description: Retrieve a payment link.
+  source_operation: openapi/wompi-openapi.yml#getPaymentLink

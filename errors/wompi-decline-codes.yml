@@ -1,0 +1,45 @@
+generated: '2026-07-17'
+method: searched
+source:
+- https://docs.wompi.co/en/docs/colombia/consultas-y-operaciones/
+- https://docs.wompi.co/en/docs/colombia/datos-de-prueba-en-sandbox/
+summary: >-
+  Wompi does not publish a formal numeric decline-code table (unlike a card acquirer's
+  ISO response codes). A charge outcome is expressed as the transaction `status` enum,
+  and a declined/errored transaction carries a free-text `status_message` from the
+  underlying acquirer/payment method. This file captures the outcome model and the
+  documented sandbox triggers that force each outcome.
+envelope_fields:
+  status: data.status
+  message: data.status_message
+statuses:
+- code: PENDING
+  meaning: Transaction accepted and awaiting a final result (async methods like PSE, Nequi, Bancolombia).
+  action: Poll GET /transactions/{id} or wait for the transaction.updated webhook.
+- code: APPROVED
+  meaning: Payment succeeded.
+  action: Fulfill the order.
+- code: DECLINED
+  meaning: Payment was rejected by the issuer/acquirer or the customer failed authorization.
+  action: Read status_message; ask the buyer to retry with another method or card.
+- code: VOIDED
+  meaning: An approved CARD transaction was annulled (void). Card only.
+  action: Terminal; funds released.
+- code: ERROR
+  meaning: The transaction could not be processed due to an error condition.
+  action: Read status_message; retry or contact support.
+sandbox_triggers:
+  note: See sandbox/wompi-sandbox.yml for the full magic-value table used to force each status in test.
+  card:
+    '4242424242424242': APPROVED
+    '4111111111111111': DECLINED
+    any-other: ERROR
+  nequi:
+    '3991111111': APPROVED
+    '3992222222': DECLINED
+  pse_financial_institution_code:
+    '1': APPROVED
+    '2': DECLINED
+masked_to_buyer: >-
+  The raw status_message may reference issuer/acquirer text; Wompi surfaces a
+  human-readable reason to merchants. There is no separate buyer-masked code set.

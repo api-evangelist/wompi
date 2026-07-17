@@ -1,0 +1,44 @@
+generated: '2026-07-17'
+method: searched
+source: https://docs.wompi.co/en/docs/colombia/eventos/
+type: Webhooks
+summary: >-
+  Wompi's only asynchronous surface is outbound webhooks ("Eventos") - server-to-server
+  HTTP POST callbacks to a merchant-configured Events URL (set per environment in the
+  Commerce Dashboard). There is no streaming / SSE / WebSocket transport, so no AsyncAPI
+  document is authored; this is the documented webhook catalog. Each event is
+  integrity-validated with an asymmetric SHA256 checksum carried both in the
+  X-Event-Checksum HTTP header and in the event body's signature.checksum field.
+transport: webhook
+method_http: POST
+config: Set an Events URL per environment (Sandbox and Production) in the Commerce Dashboard.
+delivery:
+  expected_response: HTTP 200
+  retries: Up to 3 retries over 24h (at ~30 minutes, ~3 hours, and ~24 hours) on non-200.
+signature:
+  header: X-Event-Checksum
+  algorithm: SHA256
+  method: >-
+    Concatenate the values of the fields listed in signature.properties (in order),
+    then the signature.timestamp (UNIX), then the events/integrity secret from the
+    Commerce Dashboard; SHA256 the concatenation and compare to signature.checksum.
+  body_field: signature.checksum
+envelope:
+  event: string
+  data: object
+  sent_at: ISO-8601 timestamp
+  signature:
+    properties: array of field paths hashed
+    timestamp: UNIX integer
+    checksum: SHA256 hex string
+  environment: test | prod
+events:
+- name: transaction.updated
+  description: A transaction changed state, usually to a final state (APPROVED, VOIDED, DECLINED, or ERROR).
+  data: transaction object
+- name: nequi_token.updated
+  description: A Nequi token changed state, usually to a final state (APPROVED or DECLINED).
+  data: nequi token object
+- name: bancolombia_transfer_token.updated
+  description: A Bancolombia Transfer token changed state, usually to a final state (APPROVED or DECLINED).
+  data: bancolombia transfer token object
