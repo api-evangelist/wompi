@@ -1,0 +1,231 @@
+{
+  "info": {
+    "name": "Wompi API",
+    "description": "Wompi (Grupo Bancolombia) payment gateway - Colombia (COP). Modeled from https://docs.wompi.co. Set {{baseUrl}} to https://sandbox.wompi.co/v1 (test) or https://production.wompi.co/v1. Set {{public_key}} (pub_test_/pub_prod_) and {{private_key}} (prv_test_/prv_prod_).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://sandbox.wompi.co/v1" },
+    { "key": "public_key", "value": "pub_test_replace_me" },
+    { "key": "private_key", "value": "prv_test_replace_me" }
+  ],
+  "item": [
+    {
+      "name": "Merchants",
+      "item": [
+        {
+          "name": "Get merchant & acceptance tokens",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/merchants/{{public_key}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["merchants", "{{public_key}}"]
+            },
+            "description": "Returns merchant config and presigned acceptance tokens (public key)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tokenization",
+      "item": [
+        {
+          "name": "Tokenize card",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{public_key}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tokens/cards",
+              "host": ["{{baseUrl}}"],
+              "path": ["tokens", "cards"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"number\": \"4242424242424242\",\n  \"cvc\": \"123\",\n  \"exp_month\": \"08\",\n  \"exp_year\": \"28\",\n  \"card_holder\": \"Pedro Perez\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Create Nequi token (subscribe)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{public_key}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tokens/nequi",
+              "host": ["{{baseUrl}}"],
+              "path": ["tokens", "nequi"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"3991111111\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Get Nequi token status",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{public_key}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tokens/nequi/:token_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["tokens", "nequi", ":token_id"],
+              "variable": [ { "key": "token_id", "value": "nequi_test_abcd1234" } ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payment Sources",
+      "item": [
+        {
+          "name": "Create payment source",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{private_key}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payment_sources",
+              "host": ["{{baseUrl}}"],
+              "path": ["payment_sources"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"CARD\",\n  \"token\": \"tok_test_1234_abcd\",\n  \"customer_email\": \"pedro@example.com\",\n  \"acceptance_token\": \"eyJhbGciOi...\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Create transaction (card)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{public_key}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/transactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["transactions"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount_in_cents\": 4980000,\n  \"currency\": \"COP\",\n  \"customer_email\": \"pedro@example.com\",\n  \"reference\": \"order-0001\",\n  \"acceptance_token\": \"eyJhbGciOi...\",\n  \"signature\": \"<integrity_signature>\",\n  \"payment_method\": {\n    \"type\": \"CARD\",\n    \"token\": \"tok_test_1234_abcd\",\n    \"installments\": 1\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Get transaction",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{public_key}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/transactions/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["transactions", ":id"],
+              "variable": [ { "key": "id", "value": "1234-1699999999-12345" } ]
+            }
+          }
+        },
+        {
+          "name": "Void card transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{private_key}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/transactions/:id/void",
+              "host": ["{{baseUrl}}"],
+              "path": ["transactions", ":id", "void"],
+              "variable": [ { "key": "id", "value": "1234-1699999999-12345" } ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PSE",
+      "item": [
+        {
+          "name": "List PSE financial institutions",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{public_key}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pse/financial_institutions",
+              "host": ["{{baseUrl}}"],
+              "path": ["pse", "financial_institutions"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payment Links",
+      "item": [
+        {
+          "name": "Create payment link",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{private_key}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payment_links",
+              "host": ["{{baseUrl}}"],
+              "path": ["payment_links"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Pago pedido 0001\",\n  \"description\": \"Compra en mi tienda\",\n  \"single_use\": true,\n  \"collect_shipping\": false,\n  \"currency\": \"COP\",\n  \"amount_in_cents\": 4980000\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Get payment link",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{private_key}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payment_links/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["payment_links", ":id"],
+              "variable": [ { "key": "id", "value": "abc123XYZ" } ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

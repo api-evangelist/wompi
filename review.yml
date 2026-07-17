@@ -1,0 +1,69 @@
+aid: wompi
+name: Wompi
+review:
+  question: Does Wompi expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-17'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Wompi's only asynchronous surface is
+    outbound webhooks (Eventos) - server-to-server HTTP POST callbacks to a
+    merchant-configured URL, integrity-validated with an asymmetric checksum in
+    the X-Event-Checksum header. That is standard HTTP webhooking, not a
+    streaming/SSE or WebSocket transport, so it was left as documentation rather
+    than modeled as AsyncAPI.
+findings:
+  summary: |
+    Wompi does not publish a documented public WebSocket API. The Wompi
+    gateway (Grupo Bancolombia, Colombia) exposes only REST (HTTPS) endpoints
+    under https://production.wompi.co/v1 (sandbox: https://sandbox.wompi.co/v1).
+    Payment status is obtained either by polling GET /v1/transactions/{id} or by
+    receiving outbound webhook events (HTTP POST) at a merchant URL. No realtime,
+    bidirectional ws:// or wss:// endpoint is documented anywhere in the Wompi
+    developer documentation.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://production.wompi.co/v1
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Outbound HTTP POST event notifications to a merchant-configured URL, validated via X-Event-Checksum. Not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Wompi's API reference, transactions, events, or any other product page as of the review date.
+  endpointsConfirmedRest:
+    - GET  https://production.wompi.co/v1/merchants/{public_key}
+    - POST https://production.wompi.co/v1/tokens/cards
+    - POST https://production.wompi.co/v1/tokens/nequi
+    - GET  https://production.wompi.co/v1/tokens/nequi/{token_id}
+    - POST https://production.wompi.co/v1/payment_sources
+    - POST https://production.wompi.co/v1/transactions
+    - GET  https://production.wompi.co/v1/transactions/{id}
+    - POST https://production.wompi.co/v1/transactions/{id}/void
+    - GET  https://production.wompi.co/v1/pse/financial_institutions
+    - POST https://production.wompi.co/v1/payment_links
+    - GET  https://production.wompi.co/v1/payment_links/{id}
+sources:
+  - url: https://docs.wompi.co/
+    type: Documentation
+    note: Developer docs list REST base URL production.wompi.co / sandbox.wompi.co; no WebSocket mentioned.
+  - url: https://docs.wompi.co/en/docs/colombia/transacciones/
+    type: Documentation
+    note: Transaction status is polled via GET /v1/transactions/{id}; no streaming.
+  - url: https://docs.wompi.co/en/docs/colombia/eventos/
+    type: Documentation
+    note: Asynchronous notifications are outbound webhooks over HTTP POST with X-Event-Checksum, not WebSocket.
+  - url: https://docs.wompi.co/en/docs/colombia/ambientes-y-llaves/
+    type: Documentation
+    note: Environments & keys - production/sandbox hosts and pub_/prv_ bearer key prefixes; REST only.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: false
+  reason: |
+    No WebSocket protocol surface exists, and the only asynchronous surface is
+    conventional outbound HTTP webhooks. No AsyncAPI document was created and no
+    AsyncAPI pointer was added to apis.yml.

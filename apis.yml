@@ -1,0 +1,164 @@
+aid: wompi
+url: https://raw.githubusercontent.com/api-evangelist/wompi/refs/heads/main/apis.yml
+name: Wompi
+kind: company
+description: Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP).
+  Its REST API creates and tracks transactions across local payment methods - CARD,
+  NEQUI (mobile wallet), PSE (online bank debit), and Bancolombia Transfer / Collect
+  - plus card and Nequi tokenization, reusable payment sources, and hosted payment
+  links. Public-key endpoints are browser-safe; private-key endpoints are server-side.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Payments
+- Fintech
+- Colombia
+- LatAm
+- Payment Gateway
+- PSE
+- Nequi
+created: '2026-07-17'
+modified: '2026-07-17'
+specificationVersion: '0.19'
+apis:
+- aid: wompi:wompi-transactions-api
+  name: Wompi Transactions API
+  tags:
+  - Payments
+  - Transactions
+  - Checkout
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wompi.co/en/docs/colombia/transacciones/
+  baseURL: https://production.wompi.co/v1
+  properties:
+  - url: https://docs.wompi.co/en/docs/colombia/transacciones/
+    type: Documentation
+  - url: https://docs.wompi.co/en/docs/colombia/inicia-una-transaccion-desde-cero/
+    type: APIReference
+  - url: openapi/wompi-openapi.yml
+    type: OpenAPI
+  description: Creates and tracks payment transactions in COP across CARD, NEQUI,
+    PSE, and Bancolombia Transfer/Collect methods. Transactions require an acceptance
+    token and integrity signature; they start PENDING and settle to APPROVED, DECLINED,
+    VOIDED, or ERROR.
+- aid: wompi:wompi-tokenization-api
+  name: Wompi Tokenization API
+  tags:
+  - Tokenization
+  - Cards
+  - Nequi
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wompi.co/en/docs/colombia/fuentes-de-pago/
+  baseURL: https://production.wompi.co/v1
+  properties:
+  - url: https://docs.wompi.co/en/docs/colombia/fuentes-de-pago/
+    type: Documentation
+  - url: openapi/wompi-openapi.yml
+    type: OpenAPI
+  description: Exchanges raw card data for single-use card tokens (public-key, browser-safe)
+    and enrolls Nequi accounts for tokenized charging, with status polling for in-app
+    approval.
+- aid: wompi:wompi-payment-sources-api
+  name: Wompi Payment Sources API
+  tags:
+  - Payment Sources
+  - Recurring
+  - Subscriptions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wompi.co/en/docs/colombia/fuentes-de-pago/
+  baseURL: https://production.wompi.co/v1
+  properties:
+  - url: https://docs.wompi.co/en/docs/colombia/fuentes-de-pago/
+    type: Documentation
+  - url: openapi/wompi-openapi.yml
+    type: OpenAPI
+  description: Stores a card or approved Nequi token as a reusable payment source so
+    a customer can be charged later without re-entering data. Requires the private
+    key and a presigned acceptance token.
+- aid: wompi:wompi-pse-api
+  name: Wompi PSE API
+  tags:
+  - PSE
+  - Bank Transfer
+  - ACH
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wompi.co/en/docs/colombia/metodos-de-pago/
+  baseURL: https://production.wompi.co/v1
+  properties:
+  - url: https://docs.wompi.co/en/docs/colombia/metodos-de-pago/
+    type: Documentation
+  - url: openapi/wompi-openapi.yml
+    type: OpenAPI
+  description: Returns the PSE (Pagos Seguros en Linea / online bank debit) financial
+    institution catalog that customers pick from when paying directly from a Colombian
+    savings or checking account.
+- aid: wompi:wompi-payment-links-api
+  name: Wompi Payment Links API
+  tags:
+  - Payment Links
+  - Hosted Checkout
+  - No Code
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wompi.co/en/docs/colombia/links-de-pago/
+  baseURL: https://production.wompi.co/v1
+  properties:
+  - url: https://docs.wompi.co/en/docs/colombia/links-de-pago/
+    type: Documentation
+  - url: openapi/wompi-openapi.yml
+    type: OpenAPI
+  description: Creates hosted, shareable payment links (checkout.wompi.co/l/...) for
+    fixed or open amounts. Requires the private key.
+- aid: wompi:wompi-merchants-api
+  name: Wompi Merchants & Acceptance Tokens API
+  tags:
+  - Merchants
+  - Acceptance Tokens
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wompi.co/en/docs/colombia/tokens-de-aceptacion/
+  baseURL: https://production.wompi.co/v1
+  properties:
+  - url: https://docs.wompi.co/en/docs/colombia/tokens-de-aceptacion/
+    type: Documentation
+  - url: openapi/wompi-openapi.yml
+    type: OpenAPI
+  description: Returns merchant configuration, accepted methods/currencies, and the
+    mandatory presigned acceptance tokens (end-user policy + personal-data authorization)
+    used when creating transactions and payment sources.
+- aid: wompi:wompi-events-webhooks
+  name: Wompi Events (Webhooks)
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.wompi.co/en/docs/colombia/eventos/
+  baseURL: https://production.wompi.co/v1
+  properties:
+  - url: https://docs.wompi.co/en/docs/colombia/eventos/
+    type: Documentation
+  description: Server-to-server webhook notifications (HTTP POST) for transaction
+    and payment-source state changes, validated with an asymmetric integrity checksum
+    carried in the X-Event-Checksum header and the event signature object.
+common:
+- type: AgenticAccess
+  url: agentic-access/wompi-agentic-access.yml
+- type: TrustCenter
+  url: security/wompi-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/wompi-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/wompi-domain-security.yml
+- type: Authentication
+  url: authentication/wompi-authentication.yml
+- type: Website
+  url: https://wompi.co/
+- type: Documentation
+  url: https://docs.wompi.co/
+- type: Plans
+  url: plans/wompi-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/wompi-rate-limits.yml
+- type: FinOps
+  url: finops/wompi-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

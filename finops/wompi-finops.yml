@@ -1,0 +1,82 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Wompi
+providerId: wompi
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Fintech
+- Colombia
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Wompi costs. Unlike metered API platforms, Wompi's cost is a
+  per-successful-transaction commission (percentage + fixed COP fee + IVA/VAT)
+  deducted from settlement, varying by payment method (CARD, PSE, NEQUI,
+  Bancolombia). There is no per-API-call charge; the API itself is free with a
+  merchant account. Cost management is about method mix, approval rates, and
+  chargeback/void handling rather than token/request metering.
+notes: >-
+  Commission rates are set by the merchant's Wompi / Grupo Bancolombia
+  agreement and settle in COP. Verify current per-method rates on the Wompi
+  pricing page during reconciliation.
+sources:
+- https://wompi.co/
+- https://docs.wompi.co/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Wompi
+serviceCategory: Payments
+billingModel:
+  pricingCategory: Commission-Based
+  billingFrequency: Per-Settlement
+  billingCurrency: COP
+  chargeCategories:
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Wompi Payment Gateway
+  ServiceCategory: Payments
+  ProviderName: Wompi
+  PublisherName: Wompi (Grupo Bancolombia)
+  InvoiceIssuerName: Wompi
+  BillingCurrency: COP
+  ChargeCategory: Usage
+  PricingCategory: Commission-Based
+meters:
+- name: transaction_commission
+  description: Per-successful-transaction commission (percentage + fixed COP fee + IVA), varying by payment method.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - payment_method
+  - currency
+- name: refunds_and_voids
+  description: Voided/annulled card transactions and refunds that adjust settled amounts.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - payment_method
+principles:
+- name: Visibility
+  description: Reconcile settlement reports by payment method; track effective take-rate (fees / gross volume).
+- name: Allocation
+  description: Tag transactions by merchant reference / storefront to map payment costs to products or channels.
+- name: Optimization
+  description: Steer customers toward lower-cost methods (PSE / Nequi vs. card) where appropriate; reduce declines to avoid retry cost and lost revenue.
+- name: Accountability
+  description: Review monthly commission and chargeback/void rates against budget and approval-rate targets.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,26 @@
+generated: '2026-07-17'
+method: searched
+probe: false
+source: https://wompi.co/
+url: https://wompi.co/
+certifications:
+- PCI DSS
+- Grupo Bancolombia security & risk controls
+notes: >-
+  Wompi is operated by Grupo Bancolombia and processes card payments, so it
+  operates under PCI DSS scope. Tokenization keeps raw card data out of merchant
+  systems. Colombian data-protection (Habeas Data / Ley 1581) applies and is
+  reflected in the mandatory personal-data authorization acceptance token.
+  Specific published certification artifacts were not individually probed for
+  this descriptor.
+evidence:
+- source: https://wompi.co/
+  keywords:
+  - pci
+  - tokenizacion
+  - bancolombia
+  - seguridad
+- source: https://docs.wompi.co/en/docs/colombia/tokens-de-aceptacion/
+  keywords:
+  - autorizacion de datos personales
+  - habeas data

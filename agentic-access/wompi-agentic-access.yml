@@ -1,0 +1,164 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/wompi-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents - review and bind
+  audience per deployment. Payment writes (transactions, voids, payment sources, payment links)
+  move money and are high-consequence; keep human-in-the-loop and short token TTLs.
+  See research/curity/agentic-governance/.
+summary:
+  operations: 11
+  by_action_class:
+    acting: 6
+    connected: 5
+  by_consequence:
+    write: 6
+    read: 5
+  human_in_the_loop_required: 3
+operations:
+- path: /merchants/{public_key}
+  method: get
+  operationId: getMerchant
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tokens/cards
+  method: post
+  operationId: tokenizeCard
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - sensitive-data
+    audit: required
+- path: /tokens/nequi
+  method: post
+  operationId: tokenizeNequi
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - sensitive-data
+    audit: required
+- path: /tokens/nequi/{token_id}
+  method: get
+  operationId: getNequiToken
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /payment_sources
+  method: post
+  operationId: createPaymentSource
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - high-value
+      - recurring-mandate
+    audit: required
+- path: /transactions
+  method: post
+  operationId: createTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - high-value
+    audit: required
+- path: /transactions/{id}
+  method: get
+  operationId: getTransaction
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transactions/{id}/void
+  method: post
+  operationId: voidTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - reversal
+    audit: required
+- path: /pse/financial_institutions
+  method: get
+  operationId: listPseFinancialInstitutions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /payment_links
+  method: post
+  operationId: createPaymentLink
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /payment_links/{id}
+  method: get
+  operationId: getPaymentLink
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

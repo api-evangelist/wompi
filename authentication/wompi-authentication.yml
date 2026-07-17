@@ -1,0 +1,32 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/wompi-openapi.yml
+summary:
+  types:
+  - http
+notes: >-
+  Wompi uses two HTTP Bearer keys per environment. The PUBLIC key (pub_prod_ /
+  pub_test_) is browser-safe and authorizes merchant reads, card/Nequi
+  tokenization, PSE catalog, and transaction create/read. The PRIVATE key
+  (prv_prod_ / prv_test_) is server-side only and authorizes payment sources,
+  voids, and payment links. Creating transactions additionally requires a
+  presigned acceptance token and an integrity signature (firma de integridad)
+  computed from an events/integrity secret; webhook events are validated with an
+  asymmetric checksum in the X-Event-Checksum header.
+schemes:
+- name: public_key
+  type: http
+  scheme: bearer
+  bearerFormat: apiKey
+  keyPrefix: pub_prod_ / pub_test_
+  usage: Client-side safe; tokenization, merchant read, transaction create/read, PSE catalog.
+  sources:
+  - openapi/wompi-openapi.yml
+- name: private_key
+  type: http
+  scheme: bearer
+  bearerFormat: apiKey
+  keyPrefix: prv_prod_ / prv_test_
+  usage: Server-side only; payment sources, voids, payment links.
+  sources:
+  - openapi/wompi-openapi.yml

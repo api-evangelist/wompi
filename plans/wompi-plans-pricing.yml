@@ -1,0 +1,109 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Wompi
+providerId: wompi
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Fintech
+- Colombia
+- PSE
+- Nequi
+- Plans
+description: >-
+  Wompi has no developer subscription tiers - API access is free and included
+  with a merchant account. Revenue is per-successful-transaction commission
+  (percentage + fixed COP fee + VAT/IVA), which varies by payment method and by
+  the merchant's negotiated plan. Rates below are representative public figures
+  in Colombian Pesos and should be confirmed on the Wompi pricing page or via a
+  Wompi commercial agreement; they are not billed through the API.
+notes: >-
+  Wompi is part of Grupo Bancolombia; merchants settle in COP. Card rates
+  commonly cited around 2.65%-2.79% + a fixed COP fee (~COP 700-900) + IVA per
+  approved transaction, with different rates for PSE, Nequi, and Bancolombia
+  methods. Verify current rates and any plan (e.g. "Plan Avanzado") before use.
+sources:
+- https://wompi.co/
+- https://docs.wompi.co/
+plans:
+- id: wompi-api-access
+  name: API Access (included)
+  type: free
+  description: >-
+    Full REST API access is included with any Wompi merchant account at no
+    additional platform/subscription fee. Costs are transaction commissions,
+    not API-tier charges.
+  entries:
+  - label: Developer / API Access
+    name: api_access
+    type: free
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: CO
+    unit: 1
+    price: included with merchant account
+    userMultiplied: false
+  elements:
+  - name: Transactions
+  - name: Tokenization
+  - name: Payment Sources
+  - name: Payment Links
+  - name: PSE
+  - name: Events / Webhooks
+- id: wompi-transaction-commission
+  name: Transaction Commission
+  type: usage
+  description: >-
+    Per-successful-transaction commission taken from settlement, varying by
+    payment method and negotiated merchant plan. Figures are representative
+    public COP rates, not API-metered.
+  entries:
+  - label: Card (Tarjetas)
+    name: commission_card
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: usage
+    geo: CO
+    unit: 1
+    price: approx 2.65%-2.79% + ~COP 700-900 + IVA per approved transaction
+    userMultiplied: false
+  - label: PSE (online bank debit)
+    name: commission_pse
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: usage
+    geo: CO
+    unit: 1
+    price: per-transaction fee - see Wompi pricing / commercial agreement
+    userMultiplied: false
+  - label: Nequi
+    name: commission_nequi
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: usage
+    geo: CO
+    unit: 1
+    price: per-transaction fee - see Wompi pricing / commercial agreement
+    userMultiplied: false
+  - label: Bancolombia Transfer / Collect
+    name: commission_bancolombia
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: usage
+    geo: CO
+    unit: 1
+    price: per-transaction fee - see Wompi pricing / commercial agreement
+    userMultiplied: false
+  elements:
+  - name: Settlement Commission
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

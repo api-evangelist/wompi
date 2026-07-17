@@ -1,0 +1,44 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Wompi
+providerId: wompi
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Fintech
+- Colombia
+- Rate Limiting
+- Throttling
+description: >-
+  Wompi does not publish explicit numeric API rate limits in its public
+  developer documentation. As a bank-operated payment gateway it applies
+  fraud/risk controls and may throttle abusive traffic; standard HTTP 429 and
+  4xx/5xx handling with exponential backoff is advised. Per-account limits, if
+  any, are governed by the merchant's commercial agreement with Wompi / Grupo
+  Bancolombia and are not documented as fixed public values.
+notes: >-
+  No documented RPM/RPD/TPM values were found on docs.wompi.co at review time.
+  Treat status polling (GET /v1/transactions/{id}) conservatively and prefer
+  webhook events for status changes to avoid unnecessary request volume.
+sources:
+- https://docs.wompi.co/
+- https://docs.wompi.co/en/docs/colombia/errores/
+responseCodes:
+  throttled: 429
+limits:
+- name: API Request Rate
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No public numeric limit documented; risk-based throttling may apply.
+policies:
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429/5xx.
+- name: Prefer Webhooks Over Polling
+  description: Use Eventos (webhooks) for transaction status changes rather than tight polling loops on GET /v1/transactions/{id}.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

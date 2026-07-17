@@ -1,0 +1,43 @@
+generated: '2026-07-17'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: wompi.co
+  https: true
+  http_status: 200
+  cert_expires: Dec 24 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+- host: docs.wompi.co
+  https: true
+  http_status: 200
+  cert_expires: Feb 13 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+- host: production.wompi.co
+  https: true
+  http_status: 403
+  cert_expires: Jan 26 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  note: API host; bare requests without a valid bearer key return 403 (expected).
+- host: sandbox.wompi.co
+  https: true
+  http_status: 403
+  cert_expires: Jan 26 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  note: Sandbox API host; bare requests without a valid test key return 403 (expected).
+domains:
+- domain: wompi.co
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+  notes: >-
+    SPF via Agari (agari-dns.net). DMARC policy p=reject with aggregate/forensic
+    reporting to bancolombia@rua.agari.com and dmarc@bancolombia.com.co,
+    confirming Grupo Bancolombia operation. No CAA records observed.
