@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: Wompi Merchants Payment Sources API
+  description: Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.
+  termsOfService: https://wompi.co/es/co/terminos-y-condiciones
+  contact:
+    name: Wompi Soporte
+    url: https://docs.wompi.co
+    email: soporte@wompi.co
+  version: '1.0'
+servers:
+- url: https://production.wompi.co/v1
+  description: Production
+- url: https://sandbox.wompi.co/v1
+  description: Sandbox (test keys pub_test_ / prv_test_)
+tags:
+- name: Payment Sources
+  description: Reusable payment sources for recurring charges.
+paths:
+  /payment_sources:
+    post:
+      operationId: createPaymentSource
+      tags:
+      - Payment Sources
+      summary: Create a reusable payment source
+      description: Creates a payment source from a card token or an approved Nequi token so the customer can be charged later without re-entering data. Requires the PRIVATE key and a presigned acceptance token.
+      security:
+      - PrivateKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentSourceRequest'
+      responses:
+        '201':
+          description: Payment source created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSourceResponse'
+components:
+  schemas:
+    PaymentSourceResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 12345
+            type:
+              type: string
+            status:
+              type: string
+              example: AVAILABLE
+            token:
+              type: string
+    PaymentSourceRequest:
+      type: object
+      required:
+      - type
+      - token
+      - customer_email
+      - acceptance_token
+      properties:
+        type:
+          type: string
+          enum:
+          - CARD
+          - NEQUI
+        token:
+          type: string
+          description: A card token (tok_...) or approved Nequi token (nequi_...).
+        customer_email:
+          type: string
+        acceptance_token:
+          type: string
+  securitySchemes:
+    PublicKey:
+      type: http
+      scheme: bearer
+      description: Bearer authorization with the merchant PUBLIC key (pub_prod_... / pub_test_...). Safe for client-side use; grants tokenization, merchant read, transaction create/read, and PSE catalog access.
+    PrivateKey:
+      type: http
+      scheme: bearer
+      description: Bearer authorization with the merchant PRIVATE key (prv_prod_... / prv_test_...). Server-side only; required for payment sources, voids, and payment links.

@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: Wompi Merchants Tokenization API
+  description: Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.
+  termsOfService: https://wompi.co/es/co/terminos-y-condiciones
+  contact:
+    name: Wompi Soporte
+    url: https://docs.wompi.co
+    email: soporte@wompi.co
+  version: '1.0'
+servers:
+- url: https://production.wompi.co/v1
+  description: Production
+- url: https://sandbox.wompi.co/v1
+  description: Sandbox (test keys pub_test_ / prv_test_)
+tags:
+- name: Tokenization
+  description: Tokenize cards and Nequi accounts.
+paths:
+  /tokens/cards:
+    post:
+      operationId: tokenizeCard
+      tags:
+      - Tokenization
+      summary: Tokenize a card
+      description: Exchanges raw card data for a single-use card token (tok_...). Authorized with the PUBLIC key so it is safe to call from the browser.
+      security:
+      - PublicKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardTokenRequest'
+      responses:
+        '201':
+          description: Card token created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardTokenResponse'
+        '422':
+          description: Validation error.
+  /tokens/nequi:
+    post:
+      operationId: tokenizeNequi
+      tags:
+      - Tokenization
+      summary: Create a Nequi token (subscribe)
+      description: Starts Nequi enrollment for a phone number; the user approves the subscription in the Nequi app. Returns a Nequi token (nequi_...) whose status is polled before it can be charged.
+      security:
+      - PublicKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NequiTokenRequest'
+      responses:
+        '201':
+          description: Nequi token created (status PENDING until approved in-app).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NequiTokenResponse'
+  /tokens/nequi/{token_id}:
+    get:
+      operationId: getNequiToken
+      tags:
+      - Tokenization
+      summary: Get Nequi token status
+      description: Poll a Nequi token to see if the user approved the subscription (APPROVED / DECLINED / PENDING).
+      security:
+      - PublicKey: []
+      parameters:
+      - name: token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Nequi token status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NequiTokenResponse'
+components:
+  schemas:
+    NequiTokenResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: nequi_test_abcd1234
+            status:
+              type: string
+              enum:
+              - PENDING
+              - APPROVED
+              - DECLINED
+            phone_number:
+              type: string
+    CardTokenRequest:
+      type: object
+      required:
+      - number
+      - cvc
+      - exp_month
+      - exp_year
+      - card_holder
+      properties:
+        number:
+          type: string
+          example: '4242424242424242'
+        cvc:
+          type: string
+          example: '123'
+        exp_month:
+          type: string
+          example: 08
+        exp_year:
+          type: string
+          example: '28'
+        card_holder:
+          type: string
+          example: Pedro Perez
+    CardTokenResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: CREATED
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: tok_test_1234_abcd
+            brand:
+              type: string
+              example: VISA
+            last_four:
+              type: string
+              example: '4242'
+            expires_at:
+              type: string
+              format: date-time
+    NequiTokenRequest:
+      type: object
+      required:
+      - phone_number
+      properties:
+        phone_number:
+          type: string
+          example: '3991111111'
+  securitySchemes:
+    PublicKey:
+      type: http
+      scheme: bearer
+      description: Bearer authorization with the merchant PUBLIC key (pub_prod_... / pub_test_...). Safe for client-side use; grants tokenization, merchant read, transaction create/read, and PSE catalog access.
+    PrivateKey:
+      type: http
+      scheme: bearer
+      description: Bearer authorization with the merchant PRIVATE key (prv_prod_... / prv_test_...). Server-side only; required for payment sources, voids, and payment links.

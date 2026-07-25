@@ -1,0 +1,206 @@
+openapi: 3.0.3
+info:
+  title: Wompi Merchants Transactions API
+  description: Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.
+  termsOfService: https://wompi.co/es/co/terminos-y-condiciones
+  contact:
+    name: Wompi Soporte
+    url: https://docs.wompi.co
+    email: soporte@wompi.co
+  version: '1.0'
+servers:
+- url: https://production.wompi.co/v1
+  description: Production
+- url: https://sandbox.wompi.co/v1
+  description: Sandbox (test keys pub_test_ / prv_test_)
+tags:
+- name: Transactions
+  description: Create and track payment transactions.
+paths:
+  /transactions:
+    post:
+      operationId: createTransaction
+      tags:
+      - Transactions
+      summary: Create a transaction
+      description: Creates a payment transaction for a given amount_in_cents and currency (COP). The payment_method object varies by type - CARD, NEQUI, PSE, BANCOLOMBIA_TRANSFER, or BANCOLOMBIA_COLLECT. Requires an acceptance token and a signature (firma de integridad) computed from the integrity secret. New transactions start in PENDING.
+      security:
+      - PublicKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+      responses:
+        '201':
+          description: Transaction created (status PENDING).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '422':
+          description: Validation error.
+  /transactions/{id}:
+    get:
+      operationId: getTransaction
+      tags:
+      - Transactions
+      summary: Get a transaction
+      description: Retrieves the current status of a transaction. Final status is one of APPROVED, DECLINED, VOIDED (card only), or ERROR.
+      security:
+      - PublicKey: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Transaction data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '404':
+          description: Transaction not found.
+  /transactions/{id}/void:
+    post:
+      operationId: voidTransaction
+      tags:
+      - Transactions
+      summary: Void a card transaction
+      description: Voids/annuls an approved card transaction. Requires the PRIVATE key.
+      security:
+      - PrivateKey: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Void request accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+components:
+  schemas:
+    TransactionResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 1234-1699999999-12345
+            status:
+              type: string
+              enum:
+              - PENDING
+              - APPROVED
+              - DECLINED
+              - VOIDED
+              - ERROR
+            amount_in_cents:
+              type: integer
+            currency:
+              type: string
+              example: COP
+            reference:
+              type: string
+            payment_method_type:
+              type: string
+              example: CARD
+            status_message:
+              type: string
+            created_at:
+              type: string
+              format: date-time
+    TransactionRequest:
+      type: object
+      required:
+      - amount_in_cents
+      - currency
+      - customer_email
+      - acceptance_token
+      - reference
+      - payment_method
+      - signature
+      properties:
+        amount_in_cents:
+          type: integer
+          description: Amount in COP cents (integer). e.g. 4980000 = COP 49,800.
+          example: 4980000
+        currency:
+          type: string
+          example: COP
+        customer_email:
+          type: string
+        reference:
+          type: string
+          description: Unique merchant-side reference for the payment.
+        acceptance_token:
+          type: string
+        signature:
+          type: string
+          description: Integrity signature (firma de integridad) computed from reference+amount+currency+integrity_secret.
+        payment_method:
+          oneOf:
+          - $ref: '#/components/schemas/PaymentMethodCard'
+          - $ref: '#/components/schemas/PaymentMethodNequi'
+          - $ref: '#/components/schemas/PaymentMethodPse'
+        payment_source_id:
+          type: integer
+          description: Charge a stored payment source instead of a payment_method.
+    PaymentMethodPse:
+      type: object
+      properties:
+        type:
+          type: string
+          example: PSE
+        user_type:
+          type: integer
+          description: 0 = natural person, 1 = legal entity.
+        user_legal_id_type:
+          type: string
+          example: CC
+        user_legal_id:
+          type: string
+        financial_institution_code:
+          type: string
+        payment_description:
+          type: string
+    PaymentMethodNequi:
+      type: object
+      properties:
+        type:
+          type: string
+          example: NEQUI
+        phone_number:
+          type: string
+    PaymentMethodCard:
+      type: object
+      properties:
+        type:
+          type: string
+          example: CARD
+        token:
+          type: string
+          example: tok_test_1234_abcd
+        installments:
+          type: integer
+          example: 1
+  securitySchemes:
+    PublicKey:
+      type: http
+      scheme: bearer
+      description: Bearer authorization with the merchant PUBLIC key (pub_prod_... / pub_test_...). Safe for client-side use; grants tokenization, merchant read, transaction create/read, and PSE catalog access.
+    PrivateKey:
+      type: http
+      scheme: bearer
+      description: Bearer authorization with the merchant PRIVATE key (prv_prod_... / prv_test_...). Server-side only; required for payment sources, voids, and payment links.

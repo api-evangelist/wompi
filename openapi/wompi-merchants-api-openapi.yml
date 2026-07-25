@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: Wompi Merchants API
+  description: Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.
+  termsOfService: https://wompi.co/es/co/terminos-y-condiciones
+  contact:
+    name: Wompi Soporte
+    url: https://docs.wompi.co
+    email: soporte@wompi.co
+  version: '1.0'
+servers:
+- url: https://production.wompi.co/v1
+  description: Production
+- url: https://sandbox.wompi.co/v1
+  description: Sandbox (test keys pub_test_ / prv_test_)
+tags:
+- name: Merchants
+  description: Merchant info and presigned acceptance tokens.
+paths:
+  /merchants/{public_key}:
+    get:
+      operationId: getMerchant
+      tags:
+      - Merchants
+      summary: Get merchant and presigned acceptance tokens
+      description: Returns merchant configuration, accepted payment methods, and the presigned acceptance tokens (end-user policy + personal-data authorization) that are mandatory when creating transactions and payment sources.
+      security:
+      - PublicKey: []
+      parameters:
+      - name: public_key
+        in: path
+        required: true
+        description: The merchant public key (pub_prod_... or pub_test_...).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Merchant data with presigned acceptance tokens.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantResponse'
+        '404':
+          description: Merchant not found.
+components:
+  schemas:
+    MerchantResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            email:
+              type: string
+            presigned_acceptance:
+              type: object
+              properties:
+                acceptance_token:
+                  type: string
+                permalink:
+                  type: string
+                type:
+                  type: string
+            presigned_personal_data_auth:
+              type: object
+              properties:
+                acceptance_token:
+                  type: string
+                permalink:
+                  type: string
+            accepted_currencies:
+              type: array
+              items:
+                type: string
+                example: COP
+            accepted_payment_methods:
+              type: array
+              items:
+                type: string
+                example: CARD
+  securitySchemes:
+    PublicKey:
+      type: http
+      scheme: bearer
+      description: Bearer authorization with the merchant PUBLIC key (pub_prod_... / pub_test_...). Safe for client-side use; grants tokenization, merchant read, transaction create/read, and PSE catalog access.
+    PrivateKey:
+      type: http
+      scheme: bearer
+      description: Bearer authorization with the merchant PRIVATE key (prv_prod_... / prv_test_...). Server-side only; required for payment sources, voids, and payment links.

@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Wompi Merchants Payment Links API
+  description: Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.
+  termsOfService: https://wompi.co/es/co/terminos-y-condiciones
+  contact:
+    name: Wompi Soporte
+    url: https://docs.wompi.co
+    email: soporte@wompi.co
+  version: '1.0'
+servers:
+- url: https://production.wompi.co/v1
+  description: Production
+- url: https://sandbox.wompi.co/v1
+  description: Sandbox (test keys pub_test_ / prv_test_)
+tags:
+- name: Payment Links
+  description: Hosted, shareable payment links.
+paths:
+  /payment_links:
+    post:
+      operationId: createPaymentLink
+      tags:
+      - Payment Links
+      summary: Create a payment link
+      description: Creates a hosted, shareable payment link (checkout.wompi.co/l/...) for a fixed or open amount. Requires the PRIVATE key.
+      security:
+      - PrivateKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentLinkRequest'
+      responses:
+        '201':
+          description: Payment link created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentLinkResponse'
+  /payment_links/{id}:
+    get:
+      operationId: getPaymentLink
+      tags:
+      - Payment Links
+      summary: Get a payment link
+      security:
+      - PrivateKey: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Payment link data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentLinkResponse'
+components:
+  schemas:
+    PaymentLinkRequest:
+      type: object
+      required:
+      - name
+      - description
+      - single_use
+      - currency
+      - amount_in_cents
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        single_use:
+          type: boolean
+        collect_shipping:
+          type: boolean
+        currency:
+          type: string
+          example: COP
+        amount_in_cents:
+          type: integer
+    PaymentLinkResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: abc123XYZ
+            name:
+              type: string
+            amount_in_cents:
+              type: integer
+            currency:
+              type: string
+            url:
+              type: string
+              example: https://checkout.wompi.co/l/abc123XYZ
+  securitySchemes:
+    PublicKey:
+      type: http
+      scheme: bearer
+      description: Bearer authorization with the merchant PUBLIC key (pub_prod_... / pub_test_...). Safe for client-side use; grants tokenization, merchant read, transaction create/read, and PSE catalog access.
+    PrivateKey:
+      type: http
+      scheme: bearer
+      description: Bearer authorization with the merchant PRIVATE key (prv_prod_... / prv_test_...). Server-side only; required for payment sources, voids, and payment links.
