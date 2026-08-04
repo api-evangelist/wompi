@@ -1,0 +1,24 @@
+{
+  "provider": "wompi",
+  "sources": [
+    "wompi-merchants-api-openapi.yml",
+    "wompi-payment-links-api-openapi.yml",
+    "wompi-payment-sources-api-openapi.yml",
+    "wompi-pse-api-openapi.yml",
+    "wompi-tokenization-api-openapi.yml",
+    "wompi-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "wompi-merchants-api-openapi.yml",
+    "wompi-payment-links-api-openapi.yml",
+    "wompi-payment-sources-api-openapi.yml",
+    "wompi-pse-api-openapi.yml",
+    "wompi-tokenization-api-openapi.yml",
+    "wompi-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

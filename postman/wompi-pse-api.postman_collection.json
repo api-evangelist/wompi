@@ -1,0 +1,123 @@
+{
+  "info": {
+    "_postman_id": "9e3fb621-dbbe-416c-9aa2-ac25c7ef5598",
+    "name": "Wompi Merchants PSE API",
+    "description": "Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.\n\nContact Support:\n Name: Wompi Soporte\n Email: soporte@wompi.co",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:31:35.000Z",
+    "updatedAt": "2026-07-28T03:31:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9e3fb621-dbbe-416c-9aa2-ac25c7ef5598"
+  },
+  "item": [
+    {
+      "name": "pse",
+      "item": [
+        {
+          "name": "financial_institutions",
+          "item": [
+            {
+              "name": "List PSE financial institutions",
+              "id": "240cf198-99f3-4669-b47b-4e7559b7dbf7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pse/financial_institutions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pse",
+                    "financial_institutions"
+                  ]
+                },
+                "description": "Returns the catalog of PSE (Pagos Seguros en Linea) banks - the financial_institution_code + name pairs a customer picks from when paying by online bank debit."
+              },
+              "response": [
+                {
+                  "id": "9dd70632-5636-430e-9f2a-0805e223c953",
+                  "name": "PSE financial institution catalog.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/pse/financial_institutions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pse",
+                        "financial_institutions"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"financial_institution_code\": \"<string>\",\n      \"financial_institution_name\": \"<string>\"\n    },\n    {\n      \"financial_institution_code\": \"<string>\",\n      \"financial_institution_name\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:31:36.000Z",
+                  "updatedAt": "2026-07-28T03:31:36.000Z",
+                  "uid": "35240-9dd70632-5636-430e-9f2a-0805e223c953"
+                }
+              ],
+              "createdAt": "2026-07-28T03:31:36.000Z",
+              "updatedAt": "2026-07-28T03:31:36.000Z",
+              "uid": "35240-240cf198-99f3-4669-b47b-4e7559b7dbf7"
+            }
+          ],
+          "id": "da2ea5d4-a3e5-4a4d-8e21-f4f4af0c12b1",
+          "createdAt": "2026-07-28T03:31:36.000Z",
+          "updatedAt": "2026-07-28T03:31:36.000Z",
+          "uid": "35240-da2ea5d4-a3e5-4a4d-8e21-f4f4af0c12b1"
+        }
+      ],
+      "id": "f77e7717-852d-484a-92f9-6175ccb4063b",
+      "createdAt": "2026-07-28T03:31:36.000Z",
+      "updatedAt": "2026-07-28T03:31:36.000Z",
+      "uid": "35240-f77e7717-852d-484a-92f9-6175ccb4063b"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://production.wompi.co/v1"
+    }
+  ]
+}

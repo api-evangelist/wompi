@@ -1,0 +1,140 @@
+{
+  "info": {
+    "_postman_id": "7d87e7ca-156a-4db1-b4a3-e2490a73bb94",
+    "name": "Wompi Merchants Payment Sources API",
+    "description": "Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.\n\nContact Support:\n Name: Wompi Soporte\n Email: soporte@wompi.co",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:31:34.000Z",
+    "updatedAt": "2026-07-28T03:31:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7d87e7ca-156a-4db1-b4a3-e2490a73bb94"
+  },
+  "item": [
+    {
+      "name": "payment_sources",
+      "item": [
+        {
+          "name": "Create a reusable payment source",
+          "id": "ee8e5b99-b8d3-42ec-98a0-adee9aa3f31b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"CARD\",\n  \"token\": \"<string>\",\n  \"customer_email\": \"<string>\",\n  \"acceptance_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payment_sources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payment_sources"
+              ]
+            },
+            "description": "Creates a payment source from a card token or an approved Nequi token so the customer can be charged later without re-entering data. Requires the PRIVATE key and a presigned acceptance token."
+          },
+          "response": [
+            {
+              "id": "c99db633-123a-4ce0-9c5d-0d5795803540",
+              "name": "Payment source created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"CARD\",\n  \"token\": \"<string>\",\n  \"customer_email\": \"<string>\",\n  \"acceptance_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payment_sources",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payment_sources"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"status\": \"<string>\",\n    \"token\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:31:35.000Z",
+              "updatedAt": "2026-07-28T03:31:35.000Z",
+              "uid": "35240-c99db633-123a-4ce0-9c5d-0d5795803540"
+            }
+          ],
+          "createdAt": "2026-07-28T03:31:35.000Z",
+          "updatedAt": "2026-07-28T03:31:35.000Z",
+          "uid": "35240-ee8e5b99-b8d3-42ec-98a0-adee9aa3f31b"
+        }
+      ],
+      "id": "3cf6f8d2-ecd0-4705-84a5-293e1e39c603",
+      "createdAt": "2026-07-28T03:31:35.000Z",
+      "updatedAt": "2026-07-28T03:31:35.000Z",
+      "uid": "35240-3cf6f8d2-ecd0-4705-84a5-293e1e39c603"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://production.wompi.co/v1"
+    }
+  ]
+}

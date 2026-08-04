@@ -1,0 +1,442 @@
+{
+  "info": {
+    "_postman_id": "ae119b21-0069-46c6-88e2-a02b346b0b59",
+    "name": "Wompi Merchants Transactions API",
+    "description": "Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.\n\nContact Support:\n Name: Wompi Soporte\n Email: soporte@wompi.co",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:31:37.000Z",
+    "updatedAt": "2026-07-28T03:31:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ae119b21-0069-46c6-88e2-a02b346b0b59"
+  },
+  "item": [
+    {
+      "name": "transactions",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "void",
+              "item": [
+                {
+                  "name": "Void a card transaction",
+                  "id": "808f1564-7b61-41be-aae9-be149169158c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id/void",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id",
+                        "void"
+                      ],
+                      "variable": [
+                        {
+                          "id": "2c81653a-498c-4fb4-9fc4-3c47292dc675",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Voids/annuls an approved card transaction. Requires the PRIVATE key."
+                  },
+                  "response": [
+                    {
+                      "id": "632477e7-d862-49cb-a0f0-3bc2d4a01156",
+                      "name": "Void request accepted.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transactions/:id/void",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transactions",
+                            ":id",
+                            "void"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"status\": \"VOIDED\",\n    \"amount_in_cents\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"reference\": \"<string>\",\n    \"payment_method_type\": \"<string>\",\n    \"status_message\": \"<string>\",\n    \"created_at\": \"<dateTime>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:31:38.000Z",
+                      "updatedAt": "2026-07-28T03:31:38.000Z",
+                      "uid": "35240-632477e7-d862-49cb-a0f0-3bc2d4a01156"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:31:38.000Z",
+                  "updatedAt": "2026-07-28T03:31:38.000Z",
+                  "uid": "35240-808f1564-7b61-41be-aae9-be149169158c"
+                }
+              ],
+              "id": "98383963-0705-4db5-9d93-b9db21b2e1a6",
+              "createdAt": "2026-07-28T03:31:38.000Z",
+              "updatedAt": "2026-07-28T03:31:38.000Z",
+              "uid": "35240-98383963-0705-4db5-9d93-b9db21b2e1a6"
+            },
+            {
+              "name": "Get a transaction",
+              "id": "48b1f1f9-5990-41f2-a09c-7a908bcfdb7b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "fbd0be6c-4f27-4a91-a12d-39f89b08221a",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Retrieves the current status of a transaction. Final status is one of APPROVED, DECLINED, VOIDED (card only), or ERROR."
+              },
+              "response": [
+                {
+                  "id": "65264e25-cc57-47e6-8838-76b383c497a5",
+                  "name": "Transaction data.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"status\": \"VOIDED\",\n    \"amount_in_cents\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"reference\": \"<string>\",\n    \"payment_method_type\": \"<string>\",\n    \"status_message\": \"<string>\",\n    \"created_at\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:31:38.000Z",
+                  "updatedAt": "2026-07-28T03:31:38.000Z",
+                  "uid": "35240-65264e25-cc57-47e6-8838-76b383c497a5"
+                },
+                {
+                  "id": "f40b90b7-8822-4f03-a779-3f7a494e2705",
+                  "name": "Transaction not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:31:38.000Z",
+                  "updatedAt": "2026-07-28T03:31:38.000Z",
+                  "uid": "35240-f40b90b7-8822-4f03-a779-3f7a494e2705"
+                }
+              ],
+              "createdAt": "2026-07-28T03:31:38.000Z",
+              "updatedAt": "2026-07-28T03:31:38.000Z",
+              "uid": "35240-48b1f1f9-5990-41f2-a09c-7a908bcfdb7b"
+            }
+          ],
+          "id": "0eb8458e-4c81-45c7-a603-09db0dbec6e6",
+          "createdAt": "2026-07-28T03:31:38.000Z",
+          "updatedAt": "2026-07-28T03:31:38.000Z",
+          "uid": "35240-0eb8458e-4c81-45c7-a603-09db0dbec6e6"
+        },
+        {
+          "name": "Create a transaction",
+          "id": "5d8466f5-9ca5-4d41-8784-d6d93713f7d5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount_in_cents\": \"<integer>\",\n  \"currency\": \"<string>\",\n  \"customer_email\": \"<string>\",\n  \"acceptance_token\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"token\": \"<string>\",\n    \"installments\": \"<integer>\"\n  },\n  \"signature\": \"<string>\",\n  \"payment_source_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/transactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "transactions"
+              ]
+            },
+            "description": "Creates a payment transaction for a given amount_in_cents and currency (COP). The payment_method object varies by type - CARD, NEQUI, PSE, BANCOLOMBIA_TRANSFER, or BANCOLOMBIA_COLLECT. Requires an acceptance token and a signature (firma de integridad) computed from the integrity secret. New transactions start in PENDING."
+          },
+          "response": [
+            {
+              "id": "abe6a868-7afd-4755-934c-6dc9b85a9bf1",
+              "name": "Transaction created (status PENDING).",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount_in_cents\": \"<integer>\",\n  \"currency\": \"<string>\",\n  \"customer_email\": \"<string>\",\n  \"acceptance_token\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"token\": \"<string>\",\n    \"installments\": \"<integer>\"\n  },\n  \"signature\": \"<string>\",\n  \"payment_source_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transactions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"status\": \"VOIDED\",\n    \"amount_in_cents\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"reference\": \"<string>\",\n    \"payment_method_type\": \"<string>\",\n    \"status_message\": \"<string>\",\n    \"created_at\": \"<dateTime>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:31:38.000Z",
+              "updatedAt": "2026-07-28T03:31:38.000Z",
+              "uid": "35240-abe6a868-7afd-4755-934c-6dc9b85a9bf1"
+            },
+            {
+              "id": "5924cb43-ce10-4748-9b7c-ee5c2935ba24",
+              "name": "Validation error.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount_in_cents\": \"<integer>\",\n  \"currency\": \"<string>\",\n  \"customer_email\": \"<string>\",\n  \"acceptance_token\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"token\": \"<string>\",\n    \"installments\": \"<integer>\"\n  },\n  \"signature\": \"<string>\",\n  \"payment_source_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transactions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T03:31:38.000Z",
+              "updatedAt": "2026-07-28T03:31:38.000Z",
+              "uid": "35240-5924cb43-ce10-4748-9b7c-ee5c2935ba24"
+            }
+          ],
+          "createdAt": "2026-07-28T03:31:38.000Z",
+          "updatedAt": "2026-07-28T03:31:38.000Z",
+          "uid": "35240-5d8466f5-9ca5-4d41-8784-d6d93713f7d5"
+        }
+      ],
+      "id": "90a16549-186a-4c6f-a4a3-a83b1e615c85",
+      "createdAt": "2026-07-28T03:31:38.000Z",
+      "updatedAt": "2026-07-28T03:31:38.000Z",
+      "uid": "35240-90a16549-186a-4c6f-a4a3-a83b1e615c85"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://production.wompi.co/v1"
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "info": {
+    "_postman_id": "253264da-df7d-4324-b7a4-e668c00adc90",
+    "name": "Wompi Merchants API",
+    "description": "Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.\n\nContact Support:\n Name: Wompi Soporte\n Email: soporte@wompi.co",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:31:32.000Z",
+    "updatedAt": "2026-07-28T03:31:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-253264da-df7d-4324-b7a4-e668c00adc90"
+  },
+  "item": [
+    {
+      "name": "merchants",
+      "item": [
+        {
+          "name": "{public_key}",
+          "item": [
+            {
+              "name": "Get merchant and presigned acceptance tokens",
+              "id": "d3ed1fc2-9436-4d99-ab1e-cc2dfecbe8a8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/merchants/:public_key",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "merchants",
+                    ":public_key"
+                  ],
+                  "variable": [
+                    {
+                      "id": "872a29cb-902a-4f2d-9fd6-b3527a94d62f",
+                      "key": "public_key",
+                      "value": "<string>",
+                      "description": "(Required) The merchant public key (pub_prod_... or pub_test_...)."
+                    }
+                  ]
+                },
+                "description": "Returns merchant configuration, accepted payment methods, and the presigned acceptance tokens (end-user policy + personal-data authorization) that are mandatory when creating transactions and payment sources."
+              },
+              "response": [
+                {
+                  "id": "4176d0c4-43c4-4bd3-a990-64dbf0a0af35",
+                  "name": "Merchant data with presigned acceptance tokens.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/merchants/:public_key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "merchants",
+                        ":public_key"
+                      ],
+                      "variable": [
+                        {
+                          "key": "public_key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"presigned_acceptance\": {\n      \"acceptance_token\": \"<string>\",\n      \"permalink\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"presigned_personal_data_auth\": {\n      \"acceptance_token\": \"<string>\",\n      \"permalink\": \"<string>\"\n    },\n    \"accepted_currencies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"accepted_payment_methods\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T03:31:33.000Z",
+                  "updatedAt": "2026-07-28T03:31:33.000Z",
+                  "uid": "35240-4176d0c4-43c4-4bd3-a990-64dbf0a0af35"
+                },
+                {
+                  "id": "97bdbbb3-9ce3-48b7-bb3d-79bbe249876c",
+                  "name": "Merchant not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/merchants/:public_key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "merchants",
+                        ":public_key"
+                      ],
+                      "variable": [
+                        {
+                          "key": "public_key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:31:33.000Z",
+                  "updatedAt": "2026-07-28T03:31:33.000Z",
+                  "uid": "35240-97bdbbb3-9ce3-48b7-bb3d-79bbe249876c"
+                }
+              ],
+              "createdAt": "2026-07-28T03:31:33.000Z",
+              "updatedAt": "2026-07-28T03:31:33.000Z",
+              "uid": "35240-d3ed1fc2-9436-4d99-ab1e-cc2dfecbe8a8"
+            }
+          ],
+          "id": "4352911b-24c3-46f5-b1a1-f0ed2217669b",
+          "createdAt": "2026-07-28T03:31:33.000Z",
+          "updatedAt": "2026-07-28T03:31:33.000Z",
+          "uid": "35240-4352911b-24c3-46f5-b1a1-f0ed2217669b"
+        }
+      ],
+      "id": "bedc4738-ba58-4ec7-8aba-f39c4c8c2fff",
+      "createdAt": "2026-07-28T03:31:33.000Z",
+      "updatedAt": "2026-07-28T03:31:33.000Z",
+      "uid": "35240-bedc4738-ba58-4ec7-8aba-f39c4c8c2fff"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://production.wompi.co/v1"
+    }
+  ]
+}

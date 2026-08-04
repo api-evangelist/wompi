@@ -1,0 +1,246 @@
+{
+  "info": {
+    "_postman_id": "08e83768-fbed-4045-9c86-a02749ee0ea4",
+    "name": "Wompi Merchants Payment Links API",
+    "description": "Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.\n\nContact Support:\n Name: Wompi Soporte\n Email: soporte@wompi.co",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:31:33.000Z",
+    "updatedAt": "2026-07-28T03:31:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-08e83768-fbed-4045-9c86-a02749ee0ea4"
+  },
+  "item": [
+    {
+      "name": "payment_links",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get a payment link",
+              "id": "1a50535c-cfe3-47f8-9232-fca9823b315b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payment_links/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payment_links",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "257e8807-a38e-4425-a8a4-a226c34b4127",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "c5aa2281-1ac0-4e53-b892-734cf919d872",
+                  "name": "Payment link data.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payment_links/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payment_links",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"amount_in_cents\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"url\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:31:34.000Z",
+                  "updatedAt": "2026-07-28T03:31:34.000Z",
+                  "uid": "35240-c5aa2281-1ac0-4e53-b892-734cf919d872"
+                }
+              ],
+              "createdAt": "2026-07-28T03:31:34.000Z",
+              "updatedAt": "2026-07-28T03:31:34.000Z",
+              "uid": "35240-1a50535c-cfe3-47f8-9232-fca9823b315b"
+            }
+          ],
+          "id": "14b6027d-d4a9-4547-ac7d-952261600df4",
+          "createdAt": "2026-07-28T03:31:34.000Z",
+          "updatedAt": "2026-07-28T03:31:34.000Z",
+          "uid": "35240-14b6027d-d4a9-4547-ac7d-952261600df4"
+        },
+        {
+          "name": "Create a payment link",
+          "id": "5090c443-4d76-4601-ba74-3f9072c77ae5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"single_use\": \"<boolean>\",\n  \"currency\": \"<string>\",\n  \"amount_in_cents\": \"<integer>\",\n  \"collect_shipping\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payment_links",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payment_links"
+              ]
+            },
+            "description": "Creates a hosted, shareable payment link (checkout.wompi.co/l/...) for a fixed or open amount. Requires the PRIVATE key."
+          },
+          "response": [
+            {
+              "id": "b58cf013-e4c7-4728-ab64-d35858088abe",
+              "name": "Payment link created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"single_use\": \"<boolean>\",\n  \"currency\": \"<string>\",\n  \"amount_in_cents\": \"<integer>\",\n  \"collect_shipping\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payment_links",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payment_links"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"amount_in_cents\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"url\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:31:34.000Z",
+              "updatedAt": "2026-07-28T03:31:34.000Z",
+              "uid": "35240-b58cf013-e4c7-4728-ab64-d35858088abe"
+            }
+          ],
+          "createdAt": "2026-07-28T03:31:34.000Z",
+          "updatedAt": "2026-07-28T03:31:34.000Z",
+          "uid": "35240-5090c443-4d76-4601-ba74-3f9072c77ae5"
+        }
+      ],
+      "id": "aa249a6d-de45-4198-943f-9751a024866c",
+      "createdAt": "2026-07-28T03:31:34.000Z",
+      "updatedAt": "2026-07-28T03:31:34.000Z",
+      "uid": "35240-aa249a6d-de45-4198-943f-9751a024866c"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://production.wompi.co/v1"
+    }
+  ]
+}
