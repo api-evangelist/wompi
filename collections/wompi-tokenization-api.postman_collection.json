@@ -1,0 +1,404 @@
+{
+  "item": [
+    {
+      "id": "2e666dc7-6ac2-4551-a20b-ba4b87223ba9",
+      "name": "Tokenization",
+      "description": {
+        "content": "Tokenize cards and Nequi accounts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "02f5d250-0924-488a-a0f9-9d82fc37e88c",
+          "name": "Tokenize a card",
+          "request": {
+            "name": "Tokenize a card",
+            "description": {
+              "content": "Exchanges raw card data for a single-use card token (tok_...). Authorized with the PUBLIC key so it is safe to call from the browser.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens",
+                "cards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"number\": \"<string>\",\n  \"cvc\": \"<string>\",\n  \"exp_month\": \"<string>\",\n  \"exp_year\": \"<string>\",\n  \"card_holder\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a189a003-69fe-4424-bdee-6c47d7bc6f04",
+              "name": "Card token created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    "cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"number\": \"4242424242424242\",\n  \"cvc\": \"123\",\n  \"exp_month\": \"<string>\",\n  \"exp_year\": \"28\",\n  \"card_holder\": \"Pedro Perez\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"CREATED\",\n  \"data\": {\n    \"id\": \"tok_test_1234_abcd\",\n    \"brand\": \"VISA\",\n    \"last_four\": \"4242\",\n    \"expires_at\": \"1997-07-07T02:29:49.113Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d505a4c-2101-44bf-96a1-dc350fd9f379",
+              "name": "Validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    "cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"number\": \"4242424242424242\",\n  \"cvc\": \"123\",\n  \"exp_month\": \"<string>\",\n  \"exp_year\": \"28\",\n  \"card_holder\": \"Pedro Perez\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ff2beb7-66df-4fdb-a650-697485c18b41",
+          "name": "Create a Nequi token (subscribe)",
+          "request": {
+            "name": "Create a Nequi token (subscribe)",
+            "description": {
+              "content": "Starts Nequi enrollment for a phone number; the user approves the subscription in the Nequi app. Returns a Nequi token (nequi_...) whose status is polled before it can be charged.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens",
+                "nequi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "39cb3c9c-cf5b-430c-bad7-d3a20623f254",
+              "name": "Nequi token created (status PENDING until approved in-app).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    "nequi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phone_number\": \"3991111111\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"nequi_test_abcd1234\",\n    \"status\": \"PENDING\",\n    \"phone_number\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77a3b9b4-aa45-41a8-a644-37cc7dfa2266",
+          "name": "Get Nequi token status",
+          "request": {
+            "name": "Get Nequi token status",
+            "description": {
+              "content": "Poll a Nequi token to see if the user approved the subscription (APPROVED / DECLINED / PENDING).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens",
+                "nequi",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9d221b19-dd6f-4acc-9fad-bd4fed8c467e",
+              "name": "Nequi token status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    "nequi",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"nequi_test_abcd1234\",\n    \"status\": \"PENDING\",\n    \"phone_number\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://production.wompi.co/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7da421e5-f941-4802-be97-c9b6724af2bc",
+    "name": "Wompi Merchants Tokenization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.\n\nContact Support:\n Name: Wompi Soporte\n Email: soporte@wompi.co",
+      "type": "text/plain"
+    }
+  }
+}

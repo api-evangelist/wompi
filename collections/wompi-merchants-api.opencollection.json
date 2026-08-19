@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wompi Merchants API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Merchants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get merchant and presigned acceptance tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://production.wompi.co/v1/merchants/:public_key",
+            "params": [
+              {
+                "name": "public_key",
+                "value": "",
+                "type": "path",
+                "description": "The merchant public key (pub_prod_... or pub_test_...)."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns merchant configuration, accepted payment methods, and the presigned acceptance tokens (end-user policy + personal-data authorization) that are mandatory when creating transactions and payment sources."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wompi Merchants Payment Links API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payment Links",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a payment link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://production.wompi.co/v1/payment_links",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a hosted, shareable payment link (checkout.wompi.co/l/...) for a fixed or open amount. Requires the PRIVATE key."
+        },
+        {
+          "info": {
+            "name": "Get a payment link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://production.wompi.co/v1/payment_links/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a payment link"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

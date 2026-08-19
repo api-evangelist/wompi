@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wompi Merchants PSE API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PSE",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List PSE financial institutions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://production.wompi.co/v1/pse/financial_institutions",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the catalog of PSE (Pagos Seguros en Linea) banks - the financial_institution_code + name pairs a customer picks from when paying by online bank debit."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

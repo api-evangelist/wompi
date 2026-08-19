@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wompi Merchants Transactions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://production.wompi.co/v1/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a payment transaction for a given amount_in_cents and currency (COP). The payment_method object varies by type - CARD, NEQUI, PSE, BANCOLOMBIA_TRANSFER, or BANCOLOMBIA_COLLECT. Requires an acceptance token and a signature (firma de integridad) computed from the integrity secret. New transactions start in PENDING."
+        },
+        {
+          "info": {
+            "name": "Get a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://production.wompi.co/v1/transactions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves the current status of a transaction. Final status is one of APPROVED, DECLINED, VOIDED (card only), or ERROR."
+        },
+        {
+          "info": {
+            "name": "Void a card transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://production.wompi.co/v1/transactions/:id/void",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Voids/annuls an approved card transaction. Requires the PRIVATE key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

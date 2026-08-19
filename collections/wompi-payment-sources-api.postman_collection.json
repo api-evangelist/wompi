@@ -1,0 +1,139 @@
+{
+  "item": [
+    {
+      "id": "e629023c-99d1-4144-ba63-997c3f569aa1",
+      "name": "Payment Sources",
+      "description": {
+        "content": "Reusable payment sources for recurring charges.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "221c302c-cb90-4f9d-9dbc-299db6bbec33",
+          "name": "Create a reusable payment source",
+          "request": {
+            "name": "Create a reusable payment source",
+            "description": {
+              "content": "Creates a payment source from a card token or an approved Nequi token so the customer can be charged later without re-entering data. Requires the PRIVATE key and a presigned acceptance token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"customer_email\": \"<string>\",\n  \"acceptance_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "810209b6-db01-41ee-b5ca-acde93e0fda3",
+              "name": "Payment source created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"customer_email\": \"<string>\",\n  \"acceptance_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 12345,\n    \"type\": \"string\",\n    \"status\": \"AVAILABLE\",\n    \"token\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://production.wompi.co/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "80f6eb75-ec3e-40c3-9abc-5c5545704e2c",
+    "name": "Wompi Merchants Payment Sources API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.\n\nContact Support:\n Name: Wompi Soporte\n Email: soporte@wompi.co",
+      "type": "text/plain"
+    }
+  }
+}

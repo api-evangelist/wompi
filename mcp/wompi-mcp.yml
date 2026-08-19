@@ -2,10 +2,9 @@ generated: '2026-07-17'
 method: derived
 status: candidate
 source: openapi/wompi-openapi.yml
-notes: >-
-  No official hosted/remote Wompi MCP server was found in the docs, the mcp registry,
-  or npm at review time. This is a CANDIDATE tool surface derived one-to-one from the
-  modeled OpenAPI operations, provided as a starting point for an agent integration.
+notes: No official hosted/remote Wompi MCP server was found in the docs, the mcp registry, or npm at review
+  time. This is a CANDIDATE tool surface derived one-to-one from the modeled OpenAPI operations, provided
+  as a starting point for an agent integration.
 server:
   name: wompi
   transport: http
@@ -43,3 +42,9 @@ tools:
 - name: get_payment_link
   description: Retrieve a payment link.
   source_operation: openapi/wompi-openapi.yml#getPaymentLink
+deployment:
+  mode: none
+  verified: derived
+  tools: 11
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,120 @@
+{
+  "item": [
+    {
+      "id": "70f945b5-188e-44d6-9b80-2c8a9ce3a5ae",
+      "name": "PSE",
+      "description": {
+        "content": "PSE financial institution catalog.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5001aee2-55f4-4c48-8bc9-9c31dbd542ab",
+          "name": "List PSE financial institutions",
+          "request": {
+            "name": "List PSE financial institutions",
+            "description": {
+              "content": "Returns the catalog of PSE (Pagos Seguros en Linea) banks - the financial_institution_code + name pairs a customer picks from when paying by online bank debit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pse",
+                "financial_institutions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1a3f50be-547f-44b0-a003-639fb306da4b",
+              "name": "PSE financial institution catalog.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pse",
+                    "financial_institutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"financial_institution_code\": \"1\",\n      \"financial_institution_name\": \"Banco que aprueba\"\n    },\n    {\n      \"financial_institution_code\": \"1\",\n      \"financial_institution_name\": \"Banco que aprueba\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://production.wompi.co/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "22cbce06-1c98-421e-876d-d8c1d063db82",
+    "name": "Wompi Merchants PSE API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.\n\nContact Support:\n Name: Wompi Soporte\n Email: soporte@wompi.co",
+      "type": "text/plain"
+    }
+  }
+}

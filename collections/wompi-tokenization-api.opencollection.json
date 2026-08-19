@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wompi Merchants Tokenization API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tokenization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tokenize a card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://production.wompi.co/v1/tokens/cards",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Exchanges raw card data for a single-use card token (tok_...). Authorized with the PUBLIC key so it is safe to call from the browser."
+        },
+        {
+          "info": {
+            "name": "Create a Nequi token (subscribe)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://production.wompi.co/v1/tokens/nequi",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Starts Nequi enrollment for a phone number; the user approves the subscription in the Nequi app. Returns a Nequi token (nequi_...) whose status is polled before it can be charged."
+        },
+        {
+          "info": {
+            "name": "Get Nequi token status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://production.wompi.co/v1/tokens/nequi/:token_id",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Poll a Nequi token to see if the user approved the subscription (APPROVED / DECLINED / PENDING)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
