@@ -36,6 +36,10 @@ apis:
 - aid: wompi:wompi-events-webhooks
   name: Wompi Events (Webhooks)
   tags:
+  - Webhook
+  - Event
+  - Notification
+  tags_raw:
   - Webhooks
   - Events
   - Notifications
@@ -165,6 +169,8 @@ apis:
   humanURL: https://docs.wompi.co/en/docs/colombia/transacciones/
   baseURL: https://production.wompi.co/v1
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
