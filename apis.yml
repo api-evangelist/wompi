@@ -7,6 +7,18 @@ description: Wompi is the payment gateway of Grupo Bancolombia, serving Colombia
   NEQUI (mobile wallet), PSE (online bank debit), and Bancolombia Transfer / Collect
   - plus card and Nequi tokenization, reusable payment sources, and hosted payment
   links. Public-key endpoints are browser-safe; private-key endpoints are server-side.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
