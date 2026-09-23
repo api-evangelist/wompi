@@ -1,24 +1,30 @@
 {
   "provider": "wompi",
   "sources": [
-    "wompi-merchants-api-openapi.yml",
-    "wompi-payment-links-api-openapi.yml",
-    "wompi-payment-sources-api-openapi.yml",
-    "wompi-pse-api-openapi.yml",
-    "wompi-tokenization-api-openapi.yml",
-    "wompi-transactions-api-openapi.yml"
+    "_original/wompi-openapi.yml"
   ],
   "outputs": [
     "wompi-merchants-api-openapi.yml",
+    "wompi-pse-api-openapi.yml",
     "wompi-payment-links-api-openapi.yml",
     "wompi-payment-sources-api-openapi.yml",
-    "wompi-pse-api-openapi.yml",
     "wompi-tokenization-api-openapi.yml",
     "wompi-transactions-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "wompi-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "wompi-merchants-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wompi-payment-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wompi-payment-sources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wompi-pse-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wompi-tokenization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wompi-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Wompi Merchants Payment Links API
+  title: Wompi Payment Links API
   description: Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). The REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (Pagos Seguros en Linea / online bank debit), BANCOLOMBIA_TRANSFER (Boton Bancolombia), and BANCOLOMBIA_COLLECT - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are safe for the browser; private-key endpoints are server-side only.
   termsOfService: https://wompi.co/es/co/terminos-y-condiciones
   contact:
@@ -62,6 +62,24 @@ paths:
                 $ref: '#/components/schemas/PaymentLinkResponse'
 components:
   schemas:
+    PaymentLinkResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: abc123XYZ
+            name:
+              type: string
+            amount_in_cents:
+              type: integer
+            currency:
+              type: string
+            url:
+              type: string
+              example: https://checkout.wompi.co/l/abc123XYZ
     PaymentLinkRequest:
       type: object
       required:
@@ -84,24 +102,6 @@ components:
           example: COP
         amount_in_cents:
           type: integer
-    PaymentLinkResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-              example: abc123XYZ
-            name:
-              type: string
-            amount_in_cents:
-              type: integer
-            currency:
-              type: string
-            url:
-              type: string
-              example: https://checkout.wompi.co/l/abc123XYZ
   securitySchemes:
     PublicKey:
       type: http
