@@ -89,14 +89,6 @@ paths:
                 $ref: '#/components/schemas/TransactionResponse'
 components:
   schemas:
-    PaymentMethodNequi:
-      type: object
-      properties:
-        type:
-          type: string
-          example: NEQUI
-        phone_number:
-          type: string
     TransactionResponse:
       type: object
       properties:
@@ -129,24 +121,6 @@ components:
             created_at:
               type: string
               format: date-time
-    PaymentMethodPse:
-      type: object
-      properties:
-        type:
-          type: string
-          example: PSE
-        user_type:
-          type: integer
-          description: 0 = natural person, 1 = legal entity.
-        user_legal_id_type:
-          type: string
-          example: CC
-        user_legal_id:
-          type: string
-        financial_institution_code:
-          type: string
-        payment_description:
-          type: string
     TransactionRequest:
       type: object
       required:
@@ -183,6 +157,32 @@ components:
         payment_source_id:
           type: integer
           description: Charge a stored payment source instead of a payment_method.
+    PaymentMethodPse:
+      type: object
+      properties:
+        type:
+          type: string
+          example: PSE
+        user_type:
+          type: integer
+          description: 0 = natural person, 1 = legal entity.
+        user_legal_id_type:
+          type: string
+          example: CC
+        user_legal_id:
+          type: string
+        financial_institution_code:
+          type: string
+        payment_description:
+          type: string
+    PaymentMethodNequi:
+      type: object
+      properties:
+        type:
+          type: string
+          example: NEQUI
+        phone_number:
+          type: string
     PaymentMethodCard:
       type: object
       properties:

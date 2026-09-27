@@ -111,27 +111,6 @@ components:
         card_holder:
           type: string
           example: Pedro Perez
-    CardTokenResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: CREATED
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-              example: tok_test_1234_abcd
-            brand:
-              type: string
-              example: VISA
-            last_four:
-              type: string
-              example: '4242'
-            expires_at:
-              type: string
-              format: date-time
     NequiTokenResponse:
       type: object
       properties:
@@ -157,6 +136,27 @@ components:
         phone_number:
           type: string
           example: '3991111111'
+    CardTokenResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: CREATED
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: tok_test_1234_abcd
+            brand:
+              type: string
+              example: VISA
+            last_four:
+              type: string
+              example: '4242'
+            expires_at:
+              type: string
+              format: date-time
   securitySchemes:
     PublicKey:
       type: http
