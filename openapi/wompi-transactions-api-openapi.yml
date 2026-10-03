@@ -89,6 +89,14 @@ paths:
                 $ref: '#/components/schemas/TransactionResponse'
 components:
   schemas:
+    PaymentMethodNequi:
+      type: object
+      properties:
+        type:
+          type: string
+          example: NEQUI
+        phone_number:
+          type: string
     TransactionResponse:
       type: object
       properties:
@@ -121,6 +129,18 @@ components:
             created_at:
               type: string
               format: date-time
+    PaymentMethodCard:
+      type: object
+      properties:
+        type:
+          type: string
+          example: CARD
+        token:
+          type: string
+          example: tok_test_1234_abcd
+        installments:
+          type: integer
+          example: 1
     TransactionRequest:
       type: object
       required:
@@ -175,26 +195,6 @@ components:
           type: string
         payment_description:
           type: string
-    PaymentMethodNequi:
-      type: object
-      properties:
-        type:
-          type: string
-          example: NEQUI
-        phone_number:
-          type: string
-    PaymentMethodCard:
-      type: object
-      properties:
-        type:
-          type: string
-          example: CARD
-        token:
-          type: string
-          example: tok_test_1234_abcd
-        installments:
-          type: integer
-          example: 1
   securitySchemes:
     PublicKey:
       type: http

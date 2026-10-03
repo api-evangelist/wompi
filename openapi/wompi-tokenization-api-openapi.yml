@@ -87,6 +87,44 @@ paths:
                 $ref: '#/components/schemas/NequiTokenResponse'
 components:
   schemas:
+    CardTokenResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: CREATED
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: tok_test_1234_abcd
+            brand:
+              type: string
+              example: VISA
+            last_four:
+              type: string
+              example: '4242'
+            expires_at:
+              type: string
+              format: date-time
+    NequiTokenResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: nequi_test_abcd1234
+            status:
+              type: string
+              enum:
+              - PENDING
+              - APPROVED
+              - DECLINED
+            phone_number:
+              type: string
     CardTokenRequest:
       type: object
       required:
@@ -111,23 +149,6 @@ components:
         card_holder:
           type: string
           example: Pedro Perez
-    NequiTokenResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-              example: nequi_test_abcd1234
-            status:
-              type: string
-              enum:
-              - PENDING
-              - APPROVED
-              - DECLINED
-            phone_number:
-              type: string
     NequiTokenRequest:
       type: object
       required:
@@ -136,27 +157,6 @@ components:
         phone_number:
           type: string
           example: '3991111111'
-    CardTokenResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: CREATED
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-              example: tok_test_1234_abcd
-            brand:
-              type: string
-              example: VISA
-            last_four:
-              type: string
-              example: '4242'
-            expires_at:
-              type: string
-              format: date-time
   securitySchemes:
     PublicKey:
       type: http

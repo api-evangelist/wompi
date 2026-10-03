@@ -62,24 +62,6 @@ paths:
                 $ref: '#/components/schemas/PaymentLinkResponse'
 components:
   schemas:
-    PaymentLinkResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-              example: abc123XYZ
-            name:
-              type: string
-            amount_in_cents:
-              type: integer
-            currency:
-              type: string
-            url:
-              type: string
-              example: https://checkout.wompi.co/l/abc123XYZ
     PaymentLinkRequest:
       type: object
       required:
@@ -102,6 +84,24 @@ components:
           example: COP
         amount_in_cents:
           type: integer
+    PaymentLinkResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: abc123XYZ
+            name:
+              type: string
+            amount_in_cents:
+              type: integer
+            currency:
+              type: string
+            url:
+              type: string
+              example: https://checkout.wompi.co/l/abc123XYZ
   securitySchemes:
     PublicKey:
       type: http

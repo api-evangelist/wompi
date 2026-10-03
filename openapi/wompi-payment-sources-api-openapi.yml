@@ -41,22 +41,6 @@ paths:
                 $ref: '#/components/schemas/PaymentSourceResponse'
 components:
   schemas:
-    PaymentSourceResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: integer
-              example: 12345
-            type:
-              type: string
-            status:
-              type: string
-              example: AVAILABLE
-            token:
-              type: string
     PaymentSourceRequest:
       type: object
       required:
@@ -77,6 +61,22 @@ components:
           type: string
         acceptance_token:
           type: string
+    PaymentSourceResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 12345
+            type:
+              type: string
+            status:
+              type: string
+              example: AVAILABLE
+            token:
+              type: string
   securitySchemes:
     PublicKey:
       type: http
