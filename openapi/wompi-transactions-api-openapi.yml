@@ -89,46 +89,24 @@ paths:
                 $ref: '#/components/schemas/TransactionResponse'
 components:
   schemas:
-    PaymentMethodNequi:
+    PaymentMethodPse:
       type: object
       properties:
         type:
           type: string
-          example: NEQUI
-        phone_number:
+          example: PSE
+        user_type:
+          type: integer
+          description: 0 = natural person, 1 = legal entity.
+        user_legal_id_type:
           type: string
-    TransactionResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-              example: 1234-1699999999-12345
-            status:
-              type: string
-              enum:
-              - PENDING
-              - APPROVED
-              - DECLINED
-              - VOIDED
-              - ERROR
-            amount_in_cents:
-              type: integer
-            currency:
-              type: string
-              example: COP
-            reference:
-              type: string
-            payment_method_type:
-              type: string
-              example: CARD
-            status_message:
-              type: string
-            created_at:
-              type: string
-              format: date-time
+          example: CC
+        user_legal_id:
+          type: string
+        financial_institution_code:
+          type: string
+        payment_description:
+          type: string
     PaymentMethodCard:
       type: object
       properties:
@@ -177,24 +155,46 @@ components:
         payment_source_id:
           type: integer
           description: Charge a stored payment source instead of a payment_method.
-    PaymentMethodPse:
+    PaymentMethodNequi:
       type: object
       properties:
         type:
           type: string
-          example: PSE
-        user_type:
-          type: integer
-          description: 0 = natural person, 1 = legal entity.
-        user_legal_id_type:
+          example: NEQUI
+        phone_number:
           type: string
-          example: CC
-        user_legal_id:
-          type: string
-        financial_institution_code:
-          type: string
-        payment_description:
-          type: string
+    TransactionResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 1234-1699999999-12345
+            status:
+              type: string
+              enum:
+              - PENDING
+              - APPROVED
+              - DECLINED
+              - VOIDED
+              - ERROR
+            amount_in_cents:
+              type: integer
+            currency:
+              type: string
+              example: COP
+            reference:
+              type: string
+            payment_method_type:
+              type: string
+              example: CARD
+            status_message:
+              type: string
+            created_at:
+              type: string
+              format: date-time
   securitySchemes:
     PublicKey:
       type: http
