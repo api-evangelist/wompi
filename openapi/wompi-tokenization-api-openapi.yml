@@ -87,38 +87,6 @@ paths:
                 $ref: '#/components/schemas/NequiTokenResponse'
 components:
   schemas:
-    CardTokenRequest:
-      type: object
-      required:
-      - number
-      - cvc
-      - exp_month
-      - exp_year
-      - card_holder
-      properties:
-        number:
-          type: string
-          example: '4242424242424242'
-        cvc:
-          type: string
-          example: '123'
-        exp_month:
-          type: string
-          example: 08
-        exp_year:
-          type: string
-          example: '28'
-        card_holder:
-          type: string
-          example: Pedro Perez
-    NequiTokenRequest:
-      type: object
-      required:
-      - phone_number
-      properties:
-        phone_number:
-          type: string
-          example: '3991111111'
     CardTokenResponse:
       type: object
       properties:
@@ -157,6 +125,38 @@ components:
               - DECLINED
             phone_number:
               type: string
+    NequiTokenRequest:
+      type: object
+      required:
+      - phone_number
+      properties:
+        phone_number:
+          type: string
+          example: '3991111111'
+    CardTokenRequest:
+      type: object
+      required:
+      - number
+      - cvc
+      - exp_month
+      - exp_year
+      - card_holder
+      properties:
+        number:
+          type: string
+          example: '4242424242424242'
+        cvc:
+          type: string
+          example: '123'
+        exp_month:
+          type: string
+          example: 08
+        exp_year:
+          type: string
+          example: '28'
+        card_holder:
+          type: string
+          example: Pedro Perez
   securitySchemes:
     PublicKey:
       type: http

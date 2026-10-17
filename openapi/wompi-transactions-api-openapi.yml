@@ -89,36 +89,14 @@ paths:
                 $ref: '#/components/schemas/TransactionResponse'
 components:
   schemas:
-    PaymentMethodPse:
+    PaymentMethodNequi:
       type: object
       properties:
         type:
           type: string
-          example: PSE
-        user_type:
-          type: integer
-          description: 0 = natural person, 1 = legal entity.
-        user_legal_id_type:
+          example: NEQUI
+        phone_number:
           type: string
-          example: CC
-        user_legal_id:
-          type: string
-        financial_institution_code:
-          type: string
-        payment_description:
-          type: string
-    PaymentMethodCard:
-      type: object
-      properties:
-        type:
-          type: string
-          example: CARD
-        token:
-          type: string
-          example: tok_test_1234_abcd
-        installments:
-          type: integer
-          example: 1
     TransactionRequest:
       type: object
       required:
@@ -155,14 +133,6 @@ components:
         payment_source_id:
           type: integer
           description: Charge a stored payment source instead of a payment_method.
-    PaymentMethodNequi:
-      type: object
-      properties:
-        type:
-          type: string
-          example: NEQUI
-        phone_number:
-          type: string
     TransactionResponse:
       type: object
       properties:
@@ -195,6 +165,36 @@ components:
             created_at:
               type: string
               format: date-time
+    PaymentMethodPse:
+      type: object
+      properties:
+        type:
+          type: string
+          example: PSE
+        user_type:
+          type: integer
+          description: 0 = natural person, 1 = legal entity.
+        user_legal_id_type:
+          type: string
+          example: CC
+        user_legal_id:
+          type: string
+        financial_institution_code:
+          type: string
+        payment_description:
+          type: string
+    PaymentMethodCard:
+      type: object
+      properties:
+        type:
+          type: string
+          example: CARD
+        token:
+          type: string
+          example: tok_test_1234_abcd
+        installments:
+          type: integer
+          example: 1
   securitySchemes:
     PublicKey:
       type: http
