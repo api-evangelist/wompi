@@ -1,4 +1,4 @@
-# Wompi (wompi)
+# Wompi
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,178 +64,159 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). Its REST API creates and tracks transactions across local payment methods — CARD, NEQUI (mobile wallet), PSE (online bank debit), and Bancolombia Transfer / Collect — plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are browser-safe; private-key endpoints are server-side.
+Wompi is the payment gateway of Grupo Bancolombia, serving Colombia (COP). Its REST API creates and tracks transactions across local payment methods - CARD, NEQUI (mobile wallet), PSE (online bank debit), and Bancolombia Transfer / Collect - plus card and Nequi tokenization, reusable payment sources, and hosted payment links. Public-key endpoints are browser-safe; private-key endpoints are server-side.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/wompi/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/wompi/refs/heads/main/apis.yml)
+**Areas:** Payments · Fintech · Colombia · Latin America · Payment Gateway · PSE · Nequi
 
-## Tags
+## Wompi on APIs.io
 
-- Payments
-- Fintech
-- Colombia
-- LatAm
-- Payment Gateway
-- PSE
-- Nequi
+Everything profiled for Wompi is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/wompi/](https://apis.io/providers/wompi/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (7)
 
-- **Created:** 2026-07-17
-- **Modified:** 2026-07-17
+- [Wompi Events (Webhooks)](https://apis.io/apis/wompi/wompi-events-webhooks/) — Server-to-server webhook notifications (HTTP POST) for transaction and payment-source state changes, validated with an asymmetric integrity checksum carried…
+- [Wompi Merchants API](https://apis.io/apis/wompi/wompi-merchants-api/) — Merchant info and presigned acceptance tokens.
+- [Wompi Payment Links API](https://apis.io/apis/wompi/wompi-payment-links-api/) — Hosted, shareable payment links.
+- [Wompi Payment Sources API](https://apis.io/apis/wompi/wompi-payment-sources-api/) — Reusable payment sources for recurring charges.
+- [Wompi PSE API](https://apis.io/apis/wompi/wompi-pse-api/) — PSE financial institution catalog.
+- [Wompi Tokenization API](https://apis.io/apis/wompi/wompi-tokenization-api/) — Tokenize cards and Nequi accounts.
+- [Wompi Transactions API](https://apis.io/apis/wompi/wompi-transactions-api/) — Create and track payment transactions.
 
-## APIs
+### Published properties
 
-### Wompi Transactions API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Creates and tracks payment transactions in COP across CARD, NEQUI, PSE, and Bancolombia Transfer/Collect methods. Transactions require an acceptance token and integrity signature; they start PENDING and settle to APPROVED, DECLINED, VOIDED, or ERROR.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://docs.wompi.co/en/docs/colombia/transacciones/](https://docs.wompi.co/en/docs/colombia/transacciones/)
-- **Base URL:** `https://production.wompi.co/v1`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Wompi Webhooks](https://apis.io/asyncapis/wompi/wompi-webhooks/)
 
-- Payments
-- Transactions
-- Checkout
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://docs.wompi.co/en/docs/colombia/transacciones/)
-- [API Reference](https://docs.wompi.co/en/docs/colombia/inicia-una-transaccion-desde-cero/)
-- [OpenAPI](openapi/wompi-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/wompi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [wompi](https://apis.io/servers/wompi/wompi/)
 
-### Wompi Tokenization API
+#### Agentic access (1)
 
-Exchanges raw card data for single-use card tokens (public-key, browser-safe) and enrolls Nequi accounts for tokenized charging, with status polling for in-app approval.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://docs.wompi.co/en/docs/colombia/fuentes-de-pago/](https://docs.wompi.co/en/docs/colombia/fuentes-de-pago/)
-- **Base URL:** `https://production.wompi.co/v1`
+- [Wompi Agentic Access](https://apis.io/agentic-access/wompi/wompi-agentic-access/)
 
-#### Tags
+#### Collections (12)
 
-- Tokenization
-- Cards
-- Nequi
+Postman and Open Collection request collections.
 
-#### Properties
+- [Wompi Merchants API](https://apis.io/collections/wompi/open-wompi-merchants-api/)
+- [Wompi Merchants Payment Links API](https://apis.io/collections/wompi/open-wompi-payment-links-api/)
+- [Wompi Merchants Payment Sources API](https://apis.io/collections/wompi/open-wompi-payment-sources-api/)
+- [Wompi Merchants PSE API](https://apis.io/collections/wompi/open-wompi-pse-api/)
+- [Wompi Merchants Tokenization API](https://apis.io/collections/wompi/open-wompi-tokenization-api/)
+- [Wompi Merchants Transactions API](https://apis.io/collections/wompi/open-wompi-transactions-api/)
+- [Wompi Merchants API](https://apis.io/collections/wompi/postman-wompi-merchants-api/)
+- [Wompi Merchants Payment Links API](https://apis.io/collections/wompi/postman-wompi-payment-links-api/)
+- [Wompi Merchants Payment Sources API](https://apis.io/collections/wompi/postman-wompi-payment-sources-api/)
+- [Wompi Merchants PSE API](https://apis.io/collections/wompi/postman-wompi-pse-api/)
+- [Wompi Merchants Tokenization API](https://apis.io/collections/wompi/postman-wompi-tokenization-api/)
+- [Wompi Merchants Transactions API](https://apis.io/collections/wompi/postman-wompi-transactions-api/)
 
-- [Documentation](https://docs.wompi.co/en/docs/colombia/fuentes-de-pago/)
-- [OpenAPI](openapi/wompi-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/wompi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+#### Overlays (1)
 
-### Wompi Payment Sources API
+OpenAPI overlays, including conversational phrasing for each operation.
 
-Stores a card or approved Nequi token as a reusable payment source so a customer can be charged later without re-entering data. Requires the private key and a presigned acceptance token.
+- [Wompi Openapi Overlay](https://apis.io/overlays/wompi/wompi-openapi-overlay/)
 
-- **Human URL:** [https://docs.wompi.co/en/docs/colombia/fuentes-de-pago/](https://docs.wompi.co/en/docs/colombia/fuentes-de-pago/)
-- **Base URL:** `https://production.wompi.co/v1`
+#### Security (4)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Payment Sources
-- Recurring
-- Subscriptions
+- [Wompi Authentication](https://apis.io/security/wompi/wompi-authentication/)
+- [Wompi Domain Security](https://apis.io/security/wompi/wompi-domain-security/)
+- [Wompi Trust Center](https://apis.io/security/wompi/wompi-trust-center/)
+- [Wompi Vulnerability Disclosure](https://apis.io/security/wompi/wompi-vulnerability-disclosure/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://docs.wompi.co/en/docs/colombia/fuentes-de-pago/)
-- [OpenAPI](openapi/wompi-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/wompi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+Published plans, tiers and prices.
 
-### Wompi PSE API
+- [Wompi Plans Pricing](https://apis.io/plans/wompi/wompi-plans-pricing/)
 
-Returns the PSE (Pagos Seguros en Línea / online bank debit) financial institution catalog that customers pick from when paying directly from a Colombian savings or checking account.
+#### Rate limits (1)
 
-- **Human URL:** [https://docs.wompi.co/en/docs/colombia/metodos-de-pago/](https://docs.wompi.co/en/docs/colombia/metodos-de-pago/)
-- **Base URL:** `https://production.wompi.co/v1`
+Published request limits.
 
-#### Tags
+- [Wompi Rate Limits](https://apis.io/rate-limits/wompi/wompi-rate-limits/)
 
-- PSE
-- Bank Transfer
-- ACH
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://docs.wompi.co/en/docs/colombia/metodos-de-pago/)
-- [OpenAPI](openapi/wompi-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/wompi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Wompi Finops](https://apis.io/finops/wompi/wompi-finops/)
 
-### Wompi Payment Links API
+## Where to find this API
 
-Creates hosted, shareable payment links (checkout.wompi.co/l/...) for fixed or open amounts. Requires the private key.
-
-- **Human URL:** [https://docs.wompi.co/en/docs/colombia/links-de-pago/](https://docs.wompi.co/en/docs/colombia/links-de-pago/)
-- **Base URL:** `https://production.wompi.co/v1`
-
-#### Tags
-
-- Payment Links
-- Hosted Checkout
-- No Code
-
-#### Properties
-
-- [Documentation](https://docs.wompi.co/en/docs/colombia/links-de-pago/)
-- [OpenAPI](openapi/wompi-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/wompi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-
-### Wompi Merchants & Acceptance Tokens API
-
-Returns merchant configuration, accepted methods/currencies, and the mandatory presigned acceptance tokens (end-user policy + personal-data authorization) used when creating transactions and payment sources.
-
-- **Human URL:** [https://docs.wompi.co/en/docs/colombia/tokens-de-aceptacion/](https://docs.wompi.co/en/docs/colombia/tokens-de-aceptacion/)
-- **Base URL:** `https://production.wompi.co/v1`
-
-#### Tags
-
-- Merchants
-- Acceptance Tokens
-
-#### Properties
-
-- [Documentation](https://docs.wompi.co/en/docs/colombia/tokens-de-aceptacion/)
-- [OpenAPI](openapi/wompi-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/wompi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-
-### Wompi Events (Webhooks)
-
-Server-to-server webhook notifications (HTTP POST) for transaction and payment-source state changes, validated with an asymmetric integrity checksum carried in the X-Event-Checksum header and the event signature object.
-
-- **Human URL:** [https://docs.wompi.co/en/docs/colombia/eventos/](https://docs.wompi.co/en/docs/colombia/eventos/)
-- **Base URL:** `https://production.wompi.co/v1`
-
-#### Tags
-
-- Webhooks
-- Events
-- Notifications
-
-#### Properties
-
-- [Documentation](https://docs.wompi.co/en/docs/colombia/eventos/)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://wompi.co/)
 - [Documentation](https://docs.wompi.co/)
-- [Authentication](authentication/wompi-authentication.yml)
-- [Domain Security](security/wompi-domain-security.yml)
-- [Trust Center](security/wompi-trust-center.yml)
-- [Vulnerability Disclosure](security/wompi-vulnerability-disclosure.yml)
-- [Agentic Access](agentic-access/wompi-agentic-access.yml)
-- [Plans](plans/wompi-plans-pricing.yml)
-- [Rate Limits](rate-limits/wompi-rate-limits.yml)
-- [Fin Ops](finops/wompi-finops.yml)
+- [Getting started](https://docs.wompi.co/en/docs/colombia/inicio-rapido/)
+- [API reference](https://docs.wompi.co/en/docs/colombia/referencia/)
+- [Sign up](https://comercios.wompi.co/)
+- [Terms of service](https://wompi.co/es/co/terminos-y-condiciones)
+- [Status](https://wompi.statuspage.io/)
 
-## Notes
+## API Evangelist rating
 
-- **Ownership:** Wompi is part of Grupo Bancolombia (Colombia's largest bank). Merchants settle directly in Colombian Pesos (COP).
-- **Regions:** Wompi also operates in Panamá (docs.wompi.co/en/docs/panama) and El Salvador (docs.wompi.sv). This descriptor covers the Colombia surface.
-- **Spec provenance:** No first-party OpenAPI is published; `openapi/wompi-openapi.yml` is modeled from the public docs at docs.wompi.co.
+**Kin Score 44.4** — developing · rubric 0.25.0 · scored 2026-10-23
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 55.7 |
+| Contract governance | 4.5 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 50.6 |
+| Access clarity | 31.6 |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Agent readiness 28.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.7** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/wompi/](https://apis.io/providers/wompi/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Wompi: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/wompi/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
